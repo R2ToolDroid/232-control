@@ -20,6 +20,7 @@ int CENTLOCK = 16;
 //int LEGCENTER = 17; ////POTI
 int LEGSENS = 17;
 
+
 int SCENTL = 290;
 int SCENTH = 310;
 
