@@ -21,20 +21,16 @@ int CENTLOCK = 16;
 int LEGSENS = 17;
 
 
-int SCENTL = 290;
-int SCENTH = 310;
+/// POSITIONS BESTIMMUNG POTI LEGS
 
-int SMOVEL = 890;
-int SMOVEH = 910;
+int SLEGMOVE = 440;
+int SLEGCENT = 400;
+int SLEGLOOK = 339;
 
-int SLOOKL = 290;
-int SLOOKH = 310;
+///  MAP VAriante : int val = analogRead(0);
+///  val = map(val, 0, 1023, 0, 255); Teilt die Daten in 255 er Bereich
 
-/// center ca 400
-/// move 900
-/// lookdown 300
-
-//int LEGLOOK = 3;
+/// SLEGCENT ; SLEGMOVE ; SLEGLOOK;
 
 int PROG = 12; 
 int TRIG = 4;

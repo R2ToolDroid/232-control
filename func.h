@@ -16,14 +16,13 @@ void checkpos(){
           //int leglook = digitalRead(LEGLOOK);
 
           // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
-          /// center ca 400
-          /// move 900
-          /// lookdown 300
-          
-          
-            if ((centup == 0)&&(legsens > 390) && (legsens < 410)) {POSITION = 1;} 
-            if ((centdown == 0)&& (legsens > 890 ) && (legsens < 910 )) {POSITION = 2;} 
-            if ((centdown == 0)&& (legsens > 290 ) && (legsens < 310 )) {POSITION = 3;} 
+          /// SLEGCENT ; SLEGMOVE ; SLEGLOOK;      
+         
+            if ((centup == 0)&&(legsens > SLEGCENT-5 ) && (legsens < SLEGCENT +5)) {POSITION = 1;} 
+            
+            if ((centdown == 0)&& (legsens > SLEGMOVE-5 ) && (legsens < SLEGMOVE +5 )) {POSITION = 2;} 
+            
+            if ((centup == 0)&& (legsens > SLEGLOOK -5 ) && (legsens < SLEGLOOK +5 )) {POSITION = 3;} 
             
             //if ((centdown == 1)&&( legmove == 1 ) &&( legcenter == 1 ) && (centup == 1) ) {POSITION = 0;} 
           //  if ((centdown == 0)&&( legmove == 0 ) &&( legcenter == 0 ) && (centup == 1) && (leglook == 1) ) {POSITION = 3;} 
@@ -195,14 +194,26 @@ void LegCenter(){
       int legsens = analogRead(LEGSENS);
       int lauf = 1;
       showRun();
+      
+       // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
+      
 
     while (lauf == 1) {
      
       legsens = analogRead(LEGSENS);
-      if ((legsens > 390) &&( legsens < 410)) { lauf = 0;} else { lauf = 1;}
       
+      if ((legsens > SLEGCENT-5) &&( legsens < SLEGCENT +5)) { lauf = 0;} else { lauf = 1;}
+
+      if (POSITION == 2){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);  
+      } else {
+        
+      
+        digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
+        digitalWrite(in4, HIGH);  
+            
+      }
       analogWrite(GSM2, 100);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
       Serial.println("Leg Center");
     }
@@ -220,9 +231,20 @@ void LegMove(){
 
     while (lauf == 1) {
       legsens = analogRead(LEGSENS);
-      if ((legsens > 890) &&( legsens < 910)) { lauf = 0;} else { lauf = 1;}
-      digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
+
+      // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown 
+      
+      if ((legsens > SLEGMOVE -5 ) &&( legsens < SLEGMOVE +5)) { lauf = 0;}  else { lauf = 1;}
+      if (POSITION == 1) {
+        
+      digitalWrite(in3, HIGH);  // Motor 2 beginnt zu rotieren
       digitalWrite(in4, LOW);  
+      } else {
+      digitalWrite(in3, LOW);  // Motor 2 beginnt zu rotieren
+      digitalWrite(in4, HIGH);  
+      }
+      
+      
       analogWrite(GSM2, 200);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
       Serial.println("Leg Move");
     }
@@ -235,18 +257,17 @@ void LegMove(){
 void Look(){
 
        int legsens = analogRead(LEGSENS);
-        int lauf = 1;
+       int lauf = 1;
        showRun();
 
     while ( lauf == 1) {
       legsens = analogRead(LEGSENS);
-       if ((legsens > 290) &&( legsens < 310)) { lauf = 0;} else { lauf = 1;}
+       if ((legsens > SLEGLOOK +5) &&( legsens < SLEGLOOK-5)) { lauf = 0;} else { lauf = 1;}
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);  
       analogWrite(GSM2, 200);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
       
     }
-      digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);  
       
       
@@ -288,29 +309,29 @@ void move2to3() {
 
      int centup = digitalRead(CENTUP);
      int centdown = digitalRead(CENTDOWN);
-      int legsens = analogRead(LEGSENS);
+     int legsens = analogRead(LEGSENS);
+
+      // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown 
        
     if (POSITION == 1)
     {
-      centerDown();      
+      centerDown();  
+      delay(1000);
+      LegCenter();  
     }
     
-    if ((POSITION == 1) && (centdown == 0) )
-    {
-      LegMove();     
-    }
-
-    
-
     if (POSITION == 2)
     {
       LegCenter();     
+      delay(1000);
+      centerUp();
     }
 
-    if ((POSITION == 2) && (legsens == 1))
+    if (POSITION == 3)
     {
-      centerUp();      
+      LegCenter();  
     }
+
 
 
 
@@ -336,7 +357,8 @@ void doMove() {
    
    if (MODE == 0){ACTIV = 1;} 
    // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
-
+   
+  //move2to3();
    
 
   //if ((MODE == 0) && (POSITION == 1)){move2to3(); }
