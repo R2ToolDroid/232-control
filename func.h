@@ -18,11 +18,14 @@ void checkpos(){
           // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
           /// SLEGCENT ; SLEGMOVE ; SLEGLOOK;      
          
-            if ((centup == 0)&&(legsens > SLEGCENT-5 ) && (legsens < SLEGCENT +5)) {POSITION = 1;} 
+            if ((centup == 0)&&(legsens > SLEGCENT-SR ) && (legsens < SLEGCENT +SR)) {POSITION = 1;}      
+            if ((centdown == 0)&& (legsens > SLEGMOVE ) ) {POSITION = 2;}          
+            if ((centup == 0)&& (legsens <= SLEGLOOK )) {POSITION = 3;} 
+            if ((centup == 0)&& (centdown == 0 )) {POSITION = 0;} 
+            if ((centup == 1)&& (centdown == 1 )) {POSITION = 0;} 
             
-            if ((centdown == 0)&& (legsens > SLEGMOVE-5 ) && (legsens < SLEGMOVE +5 )) {POSITION = 2;} 
+
             
-            if ((centup == 0)&& (legsens > SLEGLOOK -5 ) && (legsens < SLEGLOOK +5 )) {POSITION = 3;} 
             
             //if ((centdown == 1)&&( legmove == 1 ) &&( legcenter == 1 ) && (centup == 1) ) {POSITION = 0;} 
           //  if ((centdown == 0)&&( legmove == 0 ) &&( legcenter == 0 ) && (centup == 1) && (leglook == 1) ) {POSITION = 3;} 
@@ -73,19 +76,20 @@ void showMode(){
     int legsens = analogRead(LEGSENS);
     //int leglook = digitalRead(LEGLOOK);
     display.setCursor(0, 25);     // Start at top-left corner
-    display.print("SENS : "); 
+    display.print("SEN: "); 
 
-    if (centup == 1) {display.print ("|1");}
-    else {display.print ("|0");}
-    if (centdown == 1) {display.print ("|1");}
-    else {display.print ("|0");}
-    display.print ("- ");  
+    if (centup == 1) {display.print ("|1  ");}
+    else {display.print ("UP 0");}
+    if (centdown == 1) {display.print (" |1 ");}
+    else {display.print ("DW 0");}
+    display.print ("-");  
     display.print (legsens); 
-    display.print (" -");  
+    display.print ("-");  
      
     if (POSITION == 0){display.drawBitmap(104,1,side_bmp, WIDTH, HEIGHT, 1);}
     if (POSITION == 1){display.drawBitmap(104,1,front_bmp, WIDTH, HEIGHT, 1);}
     if (POSITION == 2){display.drawBitmap(104,1,drive_bmp, WIDTH, HEIGHT, 1);}
+    if (POSITION == 3){display.drawBitmap(104,1,look_bmp, WIDTH, HEIGHT, 1);}
     display.display();
     //delay(2000);  
   
@@ -97,7 +101,8 @@ void showRun(){
     display.setTextSize(2);      // Normal 1:1 pixel scale
     display.setTextColor(WHITE); // Draw white text
     display.setCursor(8, 8);     // Start at top-left corner
-   
+    int legsens = analogRead(LEGSENS);
+    
     if (MODE == 0){ display.print("RUN       ");}
     
     if (MODE == 1){ display.print("CentUp   ");}
@@ -109,6 +114,7 @@ void showRun(){
 
     display.setTextSize(1); 
     display.setCursor(20, 0);     // Start at top-left corner
+    
     display.print("...wait for Sensor");     
     display.display();
   
@@ -155,7 +161,7 @@ void centerUp(){
       centup = digitalRead(CENTUP);
       digitalWrite(in1, LOW);  // Motor 1 beginnt zu rotieren
       digitalWrite(in2, HIGH);  
-      analogWrite(GSM1, 255);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
+      analogWrite(GSM1, CMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
       Serial.println("Center UP");
       
     }
@@ -179,7 +185,7 @@ void centerDown(){
       centdown = digitalRead(CENTDOWN);
       digitalWrite(in1, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in2, LOW);  
-      analogWrite(GSM1, 255);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
+      analogWrite(GSM1, CMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
       Serial.println("Center Down");
       
     }
@@ -195,32 +201,32 @@ void LegCenter(){
       int lauf = 1;
       showRun();
       
-       // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
-      
+       // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown     
 
     while (lauf == 1) {
      
       legsens = analogRead(LEGSENS);
       
-      if ((legsens > SLEGCENT-5) &&( legsens < SLEGCENT +5)) { lauf = 0;} else { lauf = 1;}
+      if ((legsens > SLEGCENT-SR) &&( legsens < SLEGCENT+SR)) { lauf = 0;} else { lauf = 1;}
 
-      if (POSITION == 2){
+      if (legsens > SLEGCENT ){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);  
-      } else {
-        
+
+      Serial.println("Leg rechtsrum");
+      } else {    
       
-        digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
+        digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
         digitalWrite(in4, HIGH);  
-            
+        Serial.println("Leg linksrum");
       }
-      analogWrite(GSM2, 100);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
-      Serial.println("Leg Center");
+      analogWrite(GSM2, LMOTPWR );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
+      //Serial.println("Leg Center");
     }
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);  
       
-      
+      ACTIV = 0;
 }
 
 void LegMove(){
@@ -234,19 +240,14 @@ void LegMove(){
 
       // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown 
       
-      if ((legsens > SLEGMOVE -5 ) &&( legsens < SLEGMOVE +5)) { lauf = 0;}  else { lauf = 1;}
-      if (POSITION == 1) {
-        
-      digitalWrite(in3, HIGH);  // Motor 2 beginnt zu rotieren
-      digitalWrite(in4, LOW);  
-      } else {
+      if ((legsens > SLEGMOVE-SR )&&( legsens < SLEGMOVE+SR)) { lauf = 0;}  else { lauf = 1;}
+      
       digitalWrite(in3, LOW);  // Motor 2 beginnt zu rotieren
       digitalWrite(in4, HIGH);  
-      }
+      Serial.println("Leg linksrum");
       
-      
-      analogWrite(GSM2, 200);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
-      Serial.println("Leg Move");
+      analogWrite(GSM2, LMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
+      //Serial.println("Leg Move");
     }
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);  
@@ -262,14 +263,16 @@ void Look(){
 
     while ( lauf == 1) {
       legsens = analogRead(LEGSENS);
-       if ((legsens > SLEGLOOK +5) &&( legsens < SLEGLOOK-5)) { lauf = 0;} else { lauf = 1;}
+       if ((legsens > SLEGLOOK-SR)&&( legsens < SLEGLOOK+SR)) { lauf = 0;} else { lauf = 1;}
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);  
-      analogWrite(GSM2, 200);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
+      analogWrite(GSM2, LMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
       
     }
-      digitalWrite(in4, LOW);  
       
+      digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
+      digitalWrite(in4, LOW);  
+      ACTIV = 0;
       
 }
   
@@ -316,8 +319,8 @@ void move2to3() {
     if (POSITION == 1)
     {
       centerDown();  
-      delay(1000);
-      LegCenter();  
+      delay(500);
+      LegMove();
     }
     
     if (POSITION == 2)

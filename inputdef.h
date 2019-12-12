@@ -27,6 +27,11 @@ int SLEGMOVE = 440;
 int SLEGCENT = 400;
 int SLEGLOOK = 339;
 
+int SR = 5;  //Sensor Range
+
+int CMOTPWR = 255 ;  // Motorpower 255 Max
+int LMOTPWR = 150 ;  // Motorpower 255 Max
+ 
 ///  MAP VAriante : int val = analogRead(0);
 ///  val = map(val, 0, 1023, 0, 255); Teilt die Daten in 255 er Bereich
 
