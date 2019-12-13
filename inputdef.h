@@ -24,7 +24,7 @@ int LEGSENS = 17;
 /// POSITIONS BESTIMMUNG POTI LEGS
 
 int SLEGMOVE = 450;
-int SLEGCENT = 400;
+int SLEGCENT = 395;
 int SLEGLOOK = 350;
 
 int SR = 5;  //Sensor Range
