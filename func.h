@@ -19,7 +19,7 @@ void checkpos(){
           /// SLEGCENT ; SLEGMOVE ; SLEGLOOK;      
          
             if ((centup == 0)&&(legsens > SLEGCENT-10 ) && (legsens < SLEGCENT +10)) {POSITION = 1;}      
-            if ((centdown == 0)&& (legsens > SLEGMOVE ) ) {POSITION = 2;}          
+            if ((centdown == 0)&& (legsens > SLEGMOVE-SR ) ) {POSITION = 2;}          
             if ((centup == 0)&& (legsens <= SLEGLOOK )) {POSITION = 3;} 
             if ((centup == 0)&& (centdown == 0 )) {POSITION = 0;} 
             if ((centup == 1)&& (centdown == 1 )) {POSITION = 0;} 
