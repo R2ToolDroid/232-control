@@ -7,14 +7,17 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <EEPROM.h>   //Einfügen der EEPROM Bibliothek
 #include "232.h"
 #include "inputdef.h"
+
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #include "func.h"
+#include "dosetup.h"
 
 //R2D2 Moving; ///Classe Starten
 
@@ -36,8 +39,11 @@ void setup() {
   pinMode(LEGSENS, INPUT);
   //pinMode(LEGLOOK, INPUT);
 
-  pinMode(PROG, INPUT);
-  pinMode(TRIG, INPUT);
+  //pinMode(PROG, INPUT);
+ //Selector
+  pinMode (outputA,INPUT_PULLUP);
+  pinMode (outputB,INPUT_PULLUP);
+  pinMode(TRIG, INPUT_PULLUP);
 
   pinMode(GSM1, OUTPUT);    
   pinMode(GSM2, OUTPUT);
@@ -46,17 +52,25 @@ void setup() {
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
   //bargraph();
+  loadDefault();
+ 
+  
 }
 
 
 
 void loop() {
 
+ if (SETUP == 0) {
  checkpos();
  ceckMode();
  showMode();
- doMove();
  
+ } else {
+  doSetup();
+ }
+ 
+ doMove();
 
  if (ACTIV == 1)
  {

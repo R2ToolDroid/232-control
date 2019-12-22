@@ -1,12 +1,36 @@
 #include <Arduino.h>
 
-void ceckMode(){
-   
-    int prog = digitalRead(PROG);
-    if (MODE >= 7) {MODE = 0;}
-    if (prog == 0) {MODE = MODE +1;delay(500); }   
+
+void getCounter(){
+
+       //int prog = digitalRead(PROG);
+    aState = digitalRead(outputA); // Reads the "current" state of the outputA
+   // If the previous and the current state of the outputA are different, that means a Pulse has occured
+   if (aState != aLastState){     
+     // If the outputB state is different to the outputA state, that means the encoder is rotating clockwise
+     if (digitalRead(outputB) != aState) { 
+       counter ++;
+     } else {
+       counter --;
+     }
+     
+   } 
+   aLastState = aState; // Updates the previous state of the outputA with the current stat
+  
   
 }
+
+void ceckMode(){
+   
+  getCounter(); 
+   
+  if ((counter > 8)||(counter < 1)){counter = 0;}
+  MODE = counter;
+  
+}
+
+
+
    
 void checkpos(){
           int centup = digitalRead(CENTUP);
@@ -67,7 +91,7 @@ void showMode(){
     if (MODE == 4){ display.print("LegMove  ");}
     if (MODE == 5){ display.print("LookDown  ");}
     if (MODE == 6){ display.print("Test MOT  ");}
-    
+    if (MODE == 7){ display.print("-SETUP-");}
 
 
     int centup = digitalRead(CENTUP);
@@ -162,7 +186,7 @@ void centerUp(){
       digitalWrite(in1, LOW);  // Motor 1 beginnt zu rotieren
       digitalWrite(in2, HIGH);  
       analogWrite(GSM1, CMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
-      Serial.println("Center UP");
+      //Serial.println("Center UP");
       
     }
       digitalWrite(in1, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
@@ -186,7 +210,7 @@ void centerDown(){
       digitalWrite(in1, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in2, LOW);  
       analogWrite(GSM1, CMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
-      Serial.println("Center Down");
+      //Serial.println("Center Down");
       
     }
       digitalWrite(in1, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
@@ -213,7 +237,7 @@ void LegCenter(){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);  
 
-      Serial.println("Leg rechtsrum");
+      //Serial.println("Leg rechtsrum");
       } else {    
       
         digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
@@ -347,7 +371,10 @@ void move2to3() {
 void doMove() {
 
   int trig = digitalRead(TRIG);
-  int prog = digitalRead(PROG);
+  //int prog = digitalRead(PROG);
+  
+  //Serial.print("Trigger");
+  //Serial.println(trig);
 
   if (trig == 0) {
    
@@ -357,7 +384,10 @@ void doMove() {
    if (MODE == 4){LegMove();}
    if (MODE == 5){Look();}
    if (MODE == 6){doTest();}
-   
+
+   if (MODE == 7){SETUP = 1;}
+
+  
    if (MODE == 0){ACTIV = 1;} 
    // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
    
@@ -376,6 +406,7 @@ void doMove() {
 
   
 }
+
 
 
 
