@@ -95,6 +95,11 @@ void doInput(int VAR, int VALUE ){
         LMOTPWR = NVALUE;        
         SETTING = 0;SETUP = 0;counter = 0;
         break; 
+
+        case 12:
+        BTIME = NVALUE;        
+        SETTING = 0;SETUP = 0;counter = 0;
+        break; 
               
         default:
     // if nothing else matches, do the default
@@ -142,6 +147,11 @@ void SaveAlltoRom(){
   k=LMOTPWR;
   eepromWriteInt(adr5,k);  
   Serial.println(eepromReadInt(adr5)); 
+
+  k=BTIME;
+  eepromWriteInt(adr12,k);  
+  Serial.println(eepromReadInt(adr4)); 
+  
   delay(1000);
   bargraph();
         
@@ -241,6 +251,11 @@ void doSetup(){
     display.print("-Debug off-");
     break;
 
+    case 12:
+    display.print("Boost Time = ");
+     display.print(BTIME);
+    break;
+
     
   default:
     // if nothing else matches, do the default
@@ -273,6 +288,7 @@ void doSetup(){
         if (counter == 8) {SETUP = 0;}
         if (counter == 10) {debug = true;SETTING = 1;}
         if (counter == 11) {debug = false;SETTING = 1;}
+        if (counter == 12) {doInput(12,BTIME);SETTING = 1;}
 
       
     }
@@ -299,5 +315,8 @@ void loadDefault(){
 
     LMOTPWR = eepromReadInt(adr5);
     if (LMOTPWR < 1) {LMOTPWR = 150;}   
+
+    BTIME = eepromReadInt(adr12);
+    if (BTIME < 1) {BTIME = 20;}   
 
 }

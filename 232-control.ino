@@ -51,6 +51,8 @@ void setup() {
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
+  pinMode(BOOST, OUTPUT);
+  digitalWrite(BOOST, HIGH);
   //bargraph();
   loadDefault();
  
@@ -76,6 +78,8 @@ void loop() {
  {
   move2to3();
  }
+  //digitalWrite(BOOST, LOW);
+
 
  
 

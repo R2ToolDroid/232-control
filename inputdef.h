@@ -61,6 +61,10 @@ int GSM2 = 5;
 int in3 = 7;
 int in4 = 6;
 
+// BOOST RELAIS
+
+int BOOST = 3;
+int BTIME = 20;
 //EEPROMSPEICHER
 //String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR" };
 
@@ -70,6 +74,7 @@ int adr2=107; //SLEGLOOK
 int adr3=109; //SR
 int adr4=111; //CMOTPWR
 int adr5=113; //LMOTPWR
+int adr12=115; //BTIME
 
 int k;
 

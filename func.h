@@ -235,7 +235,15 @@ void LegCenter(){
 
       if (legsens > SLEGCENT ){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
-      digitalWrite(in4, LOW);  
+      digitalWrite(in4, LOW);
+        
+      //differenz  25 punkte
+          if (legsens > SLEGCENT+BTIME) {
+            digitalWrite(BOOST, LOW);
+            } else {
+              digitalWrite(BOOST, HIGH); 
+            }
+      
 
       //Serial.println("Leg rechtsrum");
       } else {    
@@ -249,6 +257,8 @@ void LegCenter(){
     }
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);  
+      
+      digitalWrite(BOOST, HIGH);
       
       ACTIV = 0;
 }
@@ -359,7 +369,10 @@ void move2to3() {
       LegCenter();  
     }
 
-
+    if (POSITION == 0)
+    {
+      LegCenter();  
+    }
 
 
 
