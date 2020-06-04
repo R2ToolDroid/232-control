@@ -126,31 +126,31 @@ void SaveAlltoRom(){
 
   k=SLEGMOVE;
   eepromWriteInt(adr0,k);  
-  Serial.println(eepromReadInt(adr0)); 
+  //Serial.println(eepromReadInt(adr0)); 
 
   k=SLEGCENT;
   eepromWriteInt(adr1,k);  
-  Serial.println(eepromReadInt(adr1)); 
+  //Serial.println(eepromReadInt(adr1)); 
 
   k=SLEGLOOK;
   eepromWriteInt(adr2,k);  
-  Serial.println(eepromReadInt(adr2)); 
+  //Serial.println(eepromReadInt(adr2)); 
 
   k=SR;
   eepromWriteInt(adr3,k);  
-  Serial.println(eepromReadInt(adr3)); 
+  //Serial.println(eepromReadInt(adr3)); 
 
   k=CMOTPWR;
   eepromWriteInt(adr4,k);  
-  Serial.println(eepromReadInt(adr4)); 
+  //Serial.println(eepromReadInt(adr4)); 
 
   k=LMOTPWR;
   eepromWriteInt(adr5,k);  
-  Serial.println(eepromReadInt(adr5)); 
+  //Serial.println(eepromReadInt(adr5)); 
 
   k=BTIME;
   eepromWriteInt(adr12,k);  
-  Serial.println(eepromReadInt(adr4)); 
+  //Serial.println(eepromReadInt(adr4)); 
   
   delay(1000);
   bargraph();

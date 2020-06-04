@@ -39,6 +39,8 @@ String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMO
 
 int TRIG = 4;
 
+int RC_TRIG = 2;
+
 ///Rotation Sensor
 
 #define outputA 12
