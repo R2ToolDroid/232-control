@@ -26,9 +26,9 @@ int LEGSENS = 17;
 
 /// POSITIONS BESTIMMUNG POTI LEGS
 
-int SLEGMOVE = 440;
-int SLEGCENT = 400;
-int SLEGLOOK = 339;
+int SLEGMOVE = 180;
+int SLEGCENT = 100;
+int SLEGLOOK = 70;
 
 int SR = 5;  //Sensor Range
 
@@ -38,6 +38,8 @@ int LMOTPWR = 150 ;  // Motorpower 255 Max
 String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR" };
 
 int TRIG = 4;
+
+int RC_TRIG = 2;
 
 ///Rotation Sensor
 
@@ -61,6 +63,10 @@ int GSM2 = 5;
 int in3 = 7;
 int in4 = 6;
 
+// BOOST RELAIS
+
+int BOOST = 3;
+int BTIME = 20;
 //EEPROMSPEICHER
 //String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR" };
 
@@ -70,6 +76,7 @@ int adr2=107; //SLEGLOOK
 int adr3=109; //SR
 int adr4=111; //CMOTPWR
 int adr5=113; //LMOTPWR
+int adr12=115; //BTIME
 
 int k;
 

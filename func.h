@@ -35,7 +35,9 @@ void ceckMode(){
 void checkpos(){
           int centup = digitalRead(CENTUP);
           int centdown = digitalRead(CENTDOWN);
-          int legsens = analogRead(LEGSENS);
+          
+          //int legsens = analogRead(LEGSENS);
+          int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
           //int legcenter = digitalRead(LEGCENTER);
           //int leglook = digitalRead(LEGLOOK);
 
@@ -97,7 +99,7 @@ void showMode(){
     int centup = digitalRead(CENTUP);
     int centdown = digitalRead(CENTDOWN);
     //int legmove = digitalRead(LEGMOVE);
-    int legsens = analogRead(LEGSENS);
+    int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
     //int leglook = digitalRead(LEGLOOK);
     display.setCursor(0, 25);     // Start at top-left corner
     display.print("SEN: "); 
@@ -125,7 +127,7 @@ void showRun(){
     display.setTextSize(2);      // Normal 1:1 pixel scale
     display.setTextColor(WHITE); // Draw white text
     display.setCursor(8, 8);     // Start at top-left corner
-    int legsens = analogRead(LEGSENS);
+    int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
     
     if (MODE == 0){ display.print("RUN       ");}
     
@@ -221,7 +223,7 @@ void centerDown(){
 
 void LegCenter(){
       
-      int legsens = analogRead(LEGSENS);
+      int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
       int lauf = 1;
       showRun();
       
@@ -229,13 +231,21 @@ void LegCenter(){
 
     while (lauf == 1) {
      
-      legsens = analogRead(LEGSENS);
+      legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
       
       if ((legsens > SLEGCENT-SR) &&( legsens < SLEGCENT+SR)) { lauf = 0;} else { lauf = 1;}
 
       if (legsens > SLEGCENT ){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
-      digitalWrite(in4, LOW);  
+      digitalWrite(in4, LOW);
+        
+      //differenz  25 punkte
+          if (legsens > SLEGCENT+BTIME) {
+            digitalWrite(BOOST, LOW);
+            } else {
+              digitalWrite(BOOST, HIGH); 
+            }
+      
 
       //Serial.println("Leg rechtsrum");
       } else {    
@@ -250,17 +260,19 @@ void LegCenter(){
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);  
       
+      digitalWrite(BOOST, HIGH);
+      
       ACTIV = 0;
 }
 
 void LegMove(){
 
-       int legsens = analogRead(LEGSENS);
+       int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
        int lauf = 1;
        showRun();
 
     while (lauf == 1) {
-      legsens = analogRead(LEGSENS);
+      legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
 
       // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown 
       
@@ -281,12 +293,12 @@ void LegMove(){
 
 void Look(){
 
-       int legsens = analogRead(LEGSENS);
+       int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
        int lauf = 1;
        showRun();
 
     while ( lauf == 1) {
-      legsens = analogRead(LEGSENS);
+      legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
        if ((legsens > SLEGLOOK-SR)&&( legsens < SLEGLOOK+SR)) { lauf = 0;} else { lauf = 1;}
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);  
@@ -336,7 +348,7 @@ void move2to3() {
 
      int centup = digitalRead(CENTUP);
      int centdown = digitalRead(CENTDOWN);
-     int legsens = analogRead(LEGSENS);
+     int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
 
       // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown 
        
@@ -374,12 +386,19 @@ void move2to3() {
 void doMove() {
 
   int trig = digitalRead(TRIG);
+
+  int rc_trig = pulseIn(RC_TRIG,HIGH);
+
+  
+  
+  //Serial.print("RC SIGNAL_");
+  //Serial.println(rc_trig);
   //int prog = digitalRead(PROG);
   
   //Serial.print("Trigger");
   //Serial.println(trig);
 
-  if (trig == 0) {
+  if ((trig == 0)||(rc_trig > 1600)) {
    
    if (MODE == 1){centerUp();} 
    if (MODE == 2){centerDown();}
