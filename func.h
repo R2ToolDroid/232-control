@@ -290,7 +290,7 @@ void Look(){
        if ((legsens > SLEGLOOK-SR)&&( legsens < SLEGLOOK+SR)) { lauf = 0;} else { lauf = 1;}
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);  
-      analogWrite(GSM2, LMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
+      analogWrite(GSM2, LMOTPWR-50);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
       
     }
       
@@ -359,7 +359,10 @@ void move2to3() {
       LegCenter();  
     }
 
-
+    if (POSITION == 0)
+    {
+      LegCenter();  
+    }
 
 
 
