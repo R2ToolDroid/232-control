@@ -44,6 +44,7 @@ void setup() {
   pinMode (outputA,INPUT_PULLUP);
   pinMode (outputB,INPUT_PULLUP);
   pinMode(TRIG, INPUT_PULLUP);
+  pinMode(RC_TRIG, INPUT_PULLUP);
  
 
 

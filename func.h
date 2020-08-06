@@ -236,15 +236,16 @@ void LegCenter(){
       if ((legsens > SLEGCENT-SR) &&( legsens < SLEGCENT+SR)) { lauf = 0;} else { lauf = 1;}
 
       if (legsens > SLEGCENT ){
-      digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
-      digitalWrite(in4, LOW);
+      //digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
+      // digitalWrite(in4, LOW);
+        digitalWrite(BOOST, LOW);
         
       //differenz  25 punkte
-          if (legsens > SLEGCENT+BTIME) {
-            digitalWrite(BOOST, LOW);
-            } else {
-              digitalWrite(BOOST, HIGH); 
-            }
+      //    if (legsens > SLEGCENT+BTIME) {
+      //       digitalWrite(BOOST, LOW);
+      //      } else {
+      //        digitalWrite(BOOST, HIGH); 
+      //    }
       
 
       //Serial.println("Leg rechtsrum");
@@ -387,16 +388,16 @@ void doMove() {
 
   int trig = digitalRead(TRIG);
 
-  int rc_trig = pulseIn(RC_TRIG,HIGH);
+  int rc_trig =  pulseInLong(RC_TRIG,HIGH);
 
   
   
-  //Serial.print("RC SIGNAL_");
-  //Serial.println(rc_trig);
-  //int prog = digitalRead(PROG);
+  Serial.print("RC SIGNAL_");
+  Serial.println(rc_trig);
+ // int test = analogRead(RC_TRIG);
   
   //Serial.print("Trigger");
-  //Serial.println(trig);
+  //Serial.println(test);
 
   if ((trig == 0)||(rc_trig > 1600)) {
    
