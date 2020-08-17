@@ -6,6 +6,10 @@
 #define HEIGHT   24  
 #define WIDTH    24
 
+String inputString = "";         // a String to hold incoming data
+bool stringComplete = false;  // whether the string is complete
+
+
 int POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
 int MODE = 0; // 0 = Start | 1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
 
@@ -24,7 +28,7 @@ int CENTLOCK = 16;
 int LEGSENS = 17;
 
 
-/// POSITIONS BESTIMMUNG POTI LEGS
+/// POSITIONS BESTIMMUNG POTI LEG
 
 int SLEGMOVE = 180;
 int SLEGCENT = 100;
@@ -79,6 +83,11 @@ int adr5=113; //LMOTPWR
 int adr12=115; //BTIME
 
 int k;
+
+#define A1 2
+#define A0 3
+#define T1 4
+#define T0 5
 
 
 

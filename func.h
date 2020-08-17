@@ -391,12 +391,12 @@ void doMove() {
 
   
   
-  //Serial.print("RC SIGNAL_");
-  //Serial.println(rc_trig);
-  //int prog = digitalRead(PROG);
+  Serial.print("RC SIGNAL_");
+  Serial.println(rc_trig);
+//  int prog = digitalRead(PROG);
   
-  //Serial.print("Trigger");
-  //Serial.println(trig);
+  Serial.print("Trigger");
+  Serial.println(trig);
 
   if ((trig == 0)||(rc_trig > 1600)) {
    
