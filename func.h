@@ -404,7 +404,7 @@ void doMove() {
   
   //Serial.print("Trigger");
   //Serial.println(test);
->>>>>>> b01de08fa076e6980b538a54dc7b5f69d1f76496
+
 
   if ((trig == 0)||(rc_trig > 1600)) {
    

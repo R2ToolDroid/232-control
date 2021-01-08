@@ -11,6 +11,8 @@
 #include "232.h"
 #include "inputdef.h"
 
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 32 // OLED display height, in pixels
 
 
 
