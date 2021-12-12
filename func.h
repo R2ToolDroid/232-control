@@ -236,9 +236,9 @@ void LegCenter(){
       if ((legsens > SLEGCENT-SR) &&( legsens < SLEGCENT+SR)) { lauf = 0;} else { lauf = 1;}
 
       if (legsens > SLEGCENT ){
-      //digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
-      // digitalWrite(in4, LOW);
-        digitalWrite(BOOST, LOW);
+      digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
+      digitalWrite(in4, LOW);
+      //  digitalWrite(BOOST, LOW);
         
       //differenz  25 punkte
       //    if (legsens > SLEGCENT+BTIME) {
@@ -248,7 +248,7 @@ void LegCenter(){
       //    }
       
 
-      //Serial.println("Leg rechtsrum");
+      Serial.println("Leg rechtsrum");
       } else {    
       
         digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
@@ -256,7 +256,7 @@ void LegCenter(){
         Serial.println("Leg linksrum");
       }
       analogWrite(GSM2, LMOTPWR );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren 
-      //Serial.println("Leg Center");
+      Serial.println("Leg Center");
     }
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);  
@@ -394,12 +394,12 @@ void doMove() {
   
   Serial.print("RC SIGNAL_");
   Serial.println(rc_trig);
-<<<<<<< HEAD
+
 //  int prog = digitalRead(PROG);
   
   Serial.print("Trigger");
   Serial.println(trig);
-=======
+
  // int test = analogRead(RC_TRIG);
   
   //Serial.print("Trigger");
