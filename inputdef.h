@@ -6,10 +6,6 @@
 #define HEIGHT   24  
 #define WIDTH    24
 
-String inputString = "";         // a String to hold incoming data
-bool stringComplete = false;  // whether the string is complete
-
-
 int POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
 int MODE = 0; // 0 = Start | 1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
 
@@ -28,11 +24,11 @@ int CENTLOCK = 16;
 int LEGSENS = 17;
 
 
-/// POSITIONS BESTIMMUNG POTI LEG
+/// POSITIONS BESTIMMUNG POTI LEGS
 
-int SLEGMOVE = 170;
-int SLEGCENT = 100;
-int SLEGLOOK = 70;
+int SLEGMOVE = 440;
+int SLEGCENT = 400;
+int SLEGLOOK = 339;
 
 int SR = 5;  //Sensor Range
 
@@ -43,8 +39,6 @@ String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMO
 
 int TRIG = 4;
 
-int RC_TRIG = 2;
-
 ///Rotation Sensor
 
 #define outputA 12
@@ -53,6 +47,7 @@ int RC_TRIG = 2;
 int counter = 0; 
 int aState;
 int aLastState; 
+int check;
 
 ////
 // Gleichstrommotor 1
@@ -83,11 +78,6 @@ int adr5=113; //LMOTPWR
 int adr12=115; //BTIME
 
 int k;
-
-#define A1 2
-#define A0 3
-#define T1 4
-#define T0 5
 
 
 

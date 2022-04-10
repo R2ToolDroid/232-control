@@ -11,10 +11,6 @@
 #include "232.h"
 #include "inputdef.h"
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 32 // OLED display height, in pixels
-
-
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
@@ -33,8 +29,6 @@ void setup() {
     Serial.println(F("SSD1306 allocation failed"));
     for(;;); // Don't proceed, loop forever
   }
-
-  inputString.reserve(200);
   // Clear the buffer
   display.clearDisplay();
   
@@ -50,9 +44,6 @@ void setup() {
   pinMode (outputA,INPUT_PULLUP);
   pinMode (outputB,INPUT_PULLUP);
   pinMode(TRIG, INPUT_PULLUP);
-  pinMode(RC_TRIG, INPUT_PULLUP);
- 
-
 
   pinMode(GSM1, OUTPUT);    
   pinMode(GSM2, OUTPUT);
@@ -89,36 +80,10 @@ void loop() {
  }
   //digitalWrite(BOOST, LOW);
 
-if (stringComplete) {
-    Serial.println(inputString);
 
-    if (inputString == "A0\n") {ACTIV = 0;}
-    if (inputString == "A1\n") {ACTIV = 1;}
-    //if (inputString == "T1") {trig = 1;}
-    //if (inputString == "T0") {trig = 0;}
-    
-    // clear the string:
-    inputString = "";
-    stringComplete = false;
-    Serial.print( "Active = ");
-    Serial.print (ACTIV);
-    Serial.print( "MODE = ");
-    Serial.print (MODE);
-  }
  
- 
-}
 
-void serialEvent() {
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline, set a flag so the main loop can
-    // do something about it:
-    if (inChar == '\n') {
-      stringComplete = true;
-    }
-  }
+//Serial.print( "Active =");
+//Serial.println (ACTIV);
+ 
 }
