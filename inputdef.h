@@ -35,7 +35,7 @@ int SR = 5;  //Sensor Range
 int CMOTPWR = 255 ;  // Motorpower 255 Max
 int LMOTPWR = 150 ;  // Motorpower 255 Max
 
-String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR" };
+String SensorArray[13]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR", "7" ,"8" ,"9" ,"10" ,"11" ,"12", "BTIME" };
 
 int TRIG = 4;
 
@@ -66,6 +66,7 @@ int in4 = 6;
 
 int BOOST = 3;
 int BTIME = 20;
+int PBOOST;
 //EEPROMSPEICHER
 //String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR" };
 

@@ -26,7 +26,7 @@ void getCounter(){
 
      if (check > counter) counter++;
      if (check < counter) counter--;
-      delay(100);
+      delay(200);
      //Serial.print("counter ");
      //Serial.print(counter);
   }
@@ -103,11 +103,11 @@ void showMode(){
     display.setCursor(0, 25);     // Start at top-left corner
     display.print("SEN: ");
 
-    if (centup == 1) {display.print ("|1  ");}
+    if (centup == 1) {display.print ("UP 1");}
     else {display.print ("UP 0");}
-    if (centdown == 1) {display.print (" |1 ");}
-    else {display.print ("DW 0");}
-    display.print ("-");
+    if (centdown == 1) {display.print (" DW 1");}
+    else {display.print (" DW 0");}
+    display.print (" -");
     display.print (legsens);
     display.print ("-");
     if (POSITION == 0){display.drawBitmap(104,1,side_bmp, WIDTH, HEIGHT, 1);}
@@ -216,21 +216,15 @@ void LegCenter(){
       if (legsens < SLEGCENT ){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);
-
-      //differenz  25 punkte
-          if (legsens < SLEGCENT+BTIME) {
-            digitalWrite(BOOST, LOW);
-            } else {
-              digitalWrite(BOOST, HIGH);
-            }
-
-      //Serial.println("Leg rechtsrum");
+      PBOOST = LMOTPWR+BTIME;
+      Serial.println("Leg rechtsrum");
       } else {
         digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
         digitalWrite(in4, HIGH);
+        PBOOST = LMOTPWR;
         Serial.println("Leg linksrum");
       }
-      analogWrite(GSM2, LMOTPWR );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
+      analogWrite(GSM2, PBOOST );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
       //Serial.println("Leg Center");
     }
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
