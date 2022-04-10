@@ -216,12 +216,12 @@ void LegCenter(){
       if (legsens < SLEGCENT ){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);
-      PBOOST = LMOTPWR+BTIME;
+      PBOOST = LMOTPWR;
       Serial.println("Leg rechtsrum");
       } else {
         digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
         digitalWrite(in4, HIGH);
-        PBOOST = LMOTPWR;
+        PBOOST = LMOTPWR+BTIME;
         Serial.println("Leg linksrum");
       }
       analogWrite(GSM2, PBOOST );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
