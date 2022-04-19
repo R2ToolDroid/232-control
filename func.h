@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 
-void getCounter(){
+void getCounterA(){
 
     //int prog = digitalRead(PROG);
     int A = digitalRead(outputA);
@@ -26,7 +26,7 @@ void getCounter(){
 
      if (check > counter) counter++;
      if (check < counter) counter--;
-      delay(100);
+      //delay(100);
      //Serial.print("counter ");
      //Serial.print(counter);
   }
@@ -38,6 +38,34 @@ void getCounter(){
    
 }
 
+void getCounter(){
+
+       //int prog = digitalRead(PROG);
+    aState = digitalRead(outputA); // Reads the "current" state of the outputA
+   // If the previous and the current state of the outputA are different, that means a Pulse has occured
+   if (aState != aLastState){     
+     // If the outputB state is different to the outputA state, that means the encoder is rotating clockwise
+     if (digitalRead(outputB) != aState) { 
+       counter ++;
+       //delay(100);
+       
+     } else {
+       counter --;
+       //delay(100);
+     }
+     
+   } 
+   aLastState = aState; // Updates the previous state of the outputA with the current stat
+  
+  
+}
+
+
+
+
+
+
+
 void ceckMode(){
   getCounter();
   if ((counter > 8)||(counter < 1)){counter = 0;}
@@ -48,8 +76,9 @@ void ceckMode(){
 void checkpos(){
           int centup = digitalRead(CENTUP);
           int centdown = digitalRead(CENTDOWN);
-          int legsens = analogRead(LEGSENS);
+          //int legsens = analogRead(LEGSENS);
           //int legcenter = digitalRead(LEGCENTER);
+           int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
           //int leglook = digitalRead(LEGLOOK);
 
           // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
@@ -98,7 +127,7 @@ void showMode(){
     int centup = digitalRead(CENTUP);
     int centdown = digitalRead(CENTDOWN);
     //int legmove = digitalRead(LEGMOVE);
-    int legsens = analogRead(LEGSENS);
+     int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
     //int leglook = digitalRead(LEGLOOK);
     display.setCursor(0, 25);     // Start at top-left corner
     display.print("SEN: ");
@@ -264,7 +293,7 @@ void Look(){
        showRun();
 
     while ( lauf == 1) {
-      legsens = analogRead(LEGSENS);
+       legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
        if ((legsens > SLEGLOOK-SR)&&( legsens < SLEGLOOK+SR)) { lauf = 0;} else { lauf = 1;}
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);
