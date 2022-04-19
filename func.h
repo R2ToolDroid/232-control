@@ -26,7 +26,7 @@ void getCounter(){
 
      if (check > counter) counter++;
      if (check < counter) counter--;
-      delay(200);
+      delay(100);
      //Serial.print("counter ");
      //Serial.print(counter);
   }
@@ -203,25 +203,27 @@ void centerDown(){
 }
 
 void LegCenter(){
-      int legsens = analogRead(LEGSENS);
+  
+      int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
       int lauf = 1;
       showRun();
        // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
 
     while (lauf == 1) {
-      legsens = analogRead(LEGSENS);
+      
+      legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
 
       if ((legsens > SLEGCENT-SR) &&( legsens < SLEGCENT+SR)) { lauf = 0;} else { lauf = 1;}
 
       if (legsens < SLEGCENT ){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);
-      PBOOST = LMOTPWR;
+      PBOOST = LMOTPWR+BTIME;
       Serial.println("Leg rechtsrum");
       } else {
         digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
         digitalWrite(in4, HIGH);
-        PBOOST = LMOTPWR+BTIME;
+        PBOOST = LMOTPWR;
         Serial.println("Leg linksrum");
       }
       analogWrite(GSM2, PBOOST );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
@@ -235,12 +237,12 @@ void LegCenter(){
 
 void LegMove(){
 
-       int legsens = analogRead(LEGSENS);
+       int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
        int lauf = 1;
        showRun();
 
     while (lauf == 1) {
-      legsens = analogRead(LEGSENS);
+      legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
 
       // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown
       if ((legsens > SLEGMOVE-SR )&&( legsens < SLEGMOVE+SR)) { lauf = 0;}  else { lauf = 1;}
@@ -257,7 +259,7 @@ void LegMove(){
 
 void Look(){
 
-       int legsens = analogRead(LEGSENS);
+       int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
        int lauf = 1;
        showRun();
 
@@ -310,7 +312,8 @@ void move2to3() {
 
      int centup = digitalRead(CENTUP);
      int centdown = digitalRead(CENTDOWN);
-     int legsens = analogRead(LEGSENS);
+     int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
+     
 
       // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown
     if (POSITION == 1)
@@ -345,13 +348,22 @@ void move2to3() {
 
 void doMove() {
 
-  int trig = digitalRead(TRIG);
-  //int prog = digitalRead(PROG);
+    int trig = digitalRead(TRIG);
 
-  //Serial.print("Trigger");
-  //Serial.println(trig);
+    int rc_trig =  pulseInLong(RC_TRIG,HIGH);
 
-  if (trig == 0) {
+  
+  
+  Serial.print("RC SIGNAL_");
+  Serial.println(rc_trig);
+
+//  int prog = digitalRead(PROG);
+  
+  Serial.print("Trigger");
+  Serial.println(trig);
+
+  if ((trig == 0)||(rc_trig > 1600)) {
+    
    if (MODE == 1){centerUp();}
    if (MODE == 2){centerDown();}
    if (MODE == 3){LegCenter();}

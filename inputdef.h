@@ -26,18 +26,20 @@ int LEGSENS = 17;
 
 /// POSITIONS BESTIMMUNG POTI LEGS
 
-int SLEGMOVE = 440;
-int SLEGCENT = 400;
-int SLEGLOOK = 339;
+int SLEGMOVE = 170;
+int SLEGCENT = 100;
+int SLEGLOOK = 70;
 
 int SR = 5;  //Sensor Range
 
-int CMOTPWR = 255 ;  // Motorpower 255 Max
+int CMOTPWR = 200 ;  // Motorpower 255 Max
 int LMOTPWR = 150 ;  // Motorpower 255 Max
 
 String SensorArray[13]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR", "7" ,"8" ,"9" ,"10" ,"11" ,"12", "BTIME" };
 
 int TRIG = 4;
+
+int RC_TRIG = 2;
 
 ///Rotation Sensor
 

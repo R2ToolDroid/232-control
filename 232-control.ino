@@ -11,6 +11,9 @@
 #include "232.h"
 #include "inputdef.h"
 
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 32 // OLED display height, in pixels
+
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
@@ -44,6 +47,7 @@ void setup() {
   pinMode (outputA,INPUT_PULLUP);
   pinMode (outputB,INPUT_PULLUP);
   pinMode(TRIG, INPUT_PULLUP);
+  pinMode(RC_TRIG, INPUT_PULLUP);
 
   pinMode(GSM1, OUTPUT);    
   pinMode(GSM2, OUTPUT);
