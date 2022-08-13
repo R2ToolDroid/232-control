@@ -145,6 +145,10 @@ void showMode(){
     if (POSITION == 3){display.drawBitmap(104,1,look_bmp, WIDTH, HEIGHT, 1);}
     display.display();
     //delay(2000);
+
+
+    //Serial.print( "Active =");
+    //Serial.println (legsens);
 }
 
 void showRun(){
@@ -379,17 +383,17 @@ void doMove() {
 
     int trig = digitalRead(TRIG);
 
-    int rc_trig =  pulseInLong(RC_TRIG,HIGH);
+    int rc_trig =  200;  //pulseInLong(RC_TRIG,HIGH);
 
   
   
-  Serial.print("RC SIGNAL_");
-  Serial.println(rc_trig);
+  //Serial.print("RC SIGNAL_");
+  //Serial.println(rc_trig);
 
 //  int prog = digitalRead(PROG);
   
-  Serial.print("Trigger");
-  Serial.println(trig);
+  //Serial.print("Trigger");
+  //Serial.println(trig);
 
   if ((trig == 0)||(rc_trig > 1600)) {
     

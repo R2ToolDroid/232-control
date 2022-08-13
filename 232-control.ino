@@ -87,7 +87,6 @@ void loop() {
 
  
 
-//Serial.print( "Active =");
-//Serial.println (ACTIV);
+
  
 }
