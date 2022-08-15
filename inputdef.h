@@ -1,8 +1,5 @@
 #include <Arduino.h>
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 32 // OLED display height, in pixels
-
 #define HEIGHT   24  
 #define WIDTH    24
 
@@ -43,8 +40,8 @@ int RC_TRIG = 2;
 
 ///Rotation Sensor
 
-#define outputA 12
-#define outputB 11
+//#define outputA 12
+//#define outputB 11
 
 int counter = 0; 
 int aState;

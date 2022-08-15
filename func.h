@@ -1,77 +1,6 @@
 #include <Arduino.h>
 
 
-void getCounterA(){
-
-    //int prog = digitalRead(PROG);
-    int A = digitalRead(outputA);
-    int B = digitalRead(outputB);
-      
-    aState = digitalRead(outputA); // Reads the "current" state of the outputA
-    // If the previous and the current state of the outputA are different, that means a Pulse has occured
-   if (A != B){
-     // If the outputB state is different to the outputA state, that means the encoder is rotating clockwise
-     //Serial.print(A);
-     //Serial.print(" - ");
-     //Serial.print(B);
-     if (A < B) { 
-     check++;
-     //Serial.print("Triger on ");
-     //Serial.println( check);
-     } else  {
-     check--;
-     //Serial.print("Triger off ");
-     //Serial.println( check);
-     }
-
-     if (check > counter) counter++;
-     if (check < counter) counter--;
-      //delay(100);
-     //Serial.print("counter ");
-     //Serial.print(counter);
-  }
-
-   
-    
-   aLastState = aState; // Updates the previous state of the outputA with the current stat
-
-   
-}
-
-void getCounter(){
-
-       //int prog = digitalRead(PROG);
-    aState = digitalRead(outputA); // Reads the "current" state of the outputA
-   // If the previous and the current state of the outputA are different, that means a Pulse has occured
-   if (aState != aLastState){     
-     // If the outputB state is different to the outputA state, that means the encoder is rotating clockwise
-     if (digitalRead(outputB) != aState) { 
-       counter ++;
-       //delay(100);
-       
-     } else {
-       counter --;
-       //delay(100);
-     }
-     
-   } 
-   aLastState = aState; // Updates the previous state of the outputA with the current stat
-  
-  
-}
-
-
-
-
-
-
-
-void ceckMode(){
-  getCounter();
-  if ((counter > 8)||(counter < 1)){counter = 0;}
-  MODE = counter;
-}
-
 
 void checkpos(){
           int centup = digitalRead(CENTUP);
@@ -104,6 +33,7 @@ void checkpos(){
             }
 }///checkpos
 
+/*
 void showMode(){
 
     display.clearDisplay();
@@ -150,7 +80,7 @@ void showMode(){
     //Serial.print( "Active =");
     //Serial.println (legsens);
 }
-
+*/
 void showRun(){
     display.clearDisplay();
     display.setTextSize(2);      // Normal 1:1 pixel scale
