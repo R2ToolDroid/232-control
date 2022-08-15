@@ -120,7 +120,7 @@ void bargraph(void) {
     delay(1);
   }
 
-  delay(1000);
+  delay(100);
   display.clearDisplay();
 }
 

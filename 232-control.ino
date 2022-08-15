@@ -77,23 +77,32 @@ void setup() {
 
 void checkMode(){
   
-  //getCounter();
+  getCounter();
   if ((counter > 8)||(counter < 0 )){counter = 0;}
-  if (counter != MODE){
-    
+  if (counter != MODE){  
     MODE = counter;
     showMode();
   }
  
-  
+  //getCounter();
 }  
 
 void loop() {
 
     if (SETUP == 0) {
-        //checkpos();
-        checkMode();
-        //showMode();
+      
+        int select = digitalRead(TRIG);
+        if ( select == 0 ){
+            firstStart = false;
+            delay(500);
+        }
+        if (firstStart){
+          showMode();
+        } else {
+          checkMode();
+        }    
+        
+        
  
     } else {
         doSetup();
@@ -101,9 +110,5 @@ void loop() {
  
   doMove();
 
-      if (ACTIV == 1)
-          {
-           move2to3();
-           }
   
 }

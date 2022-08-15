@@ -15,8 +15,13 @@ int MODE = 0; //
  *  7 Setup
  */ //1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
 
+int PAGE = 0;
+    // 0 = Start
+    // 1 = Sensor
+    // 2 = Menu
 
-//bool firstStart = true;
+
+bool firstStart = true;
 
 
 int ACTIV = 0;  // 0 = Position eingenommen // 1 = In Transit

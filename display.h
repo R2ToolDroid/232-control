@@ -5,10 +5,10 @@ void showMode(){
     display.clearDisplay();
     display.setTextSize(1);      // Normal 1:1 pixel scale
     display.setTextColor(WHITE); // Draw white text
-    display.setCursor(0, 4);     // Start at top-left corner
+    display.setCursor(2, 4);     // Start at top-left corner
     display.print("STATUS : ");
     display.print(POSITION);  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
-    display.setCursor(0, 12);     // Start at top-left corner
+    display.setCursor(2, 18);     // Start at top-left corner
     display.print("MODE : ");
     if (MODE == 0){ display.print("0 Automatic");}
     if (MODE == 1){ display.print("1 CentUp   ");}
@@ -40,6 +40,7 @@ void showMode(){
     //if (POSITION == 2){display.drawBitmap(104,1,drive_bmp, WIDTH, HEIGHT, 1);}
     //if (POSITION == 3){display.drawBitmap(104,1,look_bmp, WIDTH, HEIGHT, 1);}
     display.display();
+    
     
 }
 
