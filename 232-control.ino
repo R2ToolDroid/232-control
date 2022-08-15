@@ -3,13 +3,13 @@
  Display I2C 128x32
  **************************************************************************/
 
-//#include <SPI.h>
+
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <EEPROM.h>   //Einfügen der EEPROM Bibliothek
-#include "inputdef.h"
 
+#include "inputdef.h"
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 32 // OLED display height, in pixels
@@ -17,8 +17,6 @@
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-
-//Encoder INPUT_WHEEL(11, 12);
 
 #include "count.h"
 #include "func.h"
@@ -70,9 +68,9 @@ void setup() {
   pinMode(BOOST, OUTPUT);
   digitalWrite(BOOST, HIGH);
   //bargraph();
-  //loadDefault();
- */
   
+ */
+  loadDefault();
 }
 
 void checkMode(){
@@ -87,6 +85,6 @@ void checkMode(){
 void loop() {
     
     //checkMode();
-    doInput(0, 100 );
+    doSetup();
   
 }

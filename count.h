@@ -7,16 +7,20 @@ int currentStateCLK;
 int lastStateCLK;
 String currentDir ="";
 unsigned long lastButtonPress = 0;
+bool count = false;
 
 void getCounter() {
   
   // Read the current state of CLK
   currentStateCLK = digitalRead(CLK);
 
+  count = false;
+
   // If last and current state of CLK are different, then pulse occurred
   // React to only 1 state change to avoid double count
   if (currentStateCLK != lastStateCLK  && currentStateCLK == 1){
 
+    
     // If the DT state is different than the CLK state then
     // the encoder is rotating CCW so decrement
     if (digitalRead(DT) != currentStateCLK) {
@@ -24,7 +28,8 @@ void getCounter() {
       currentDir ="CCW";
       //MODE = counter;
       //showMode();
-
+      count = true;
+      
       
     } else {
       // Encoder is rotating CW so increment
@@ -32,12 +37,17 @@ void getCounter() {
       currentDir ="CW";
       //MODE = counter;
       //showMode();
+      count = true;
     }
 
-    Serial.print("Direction: ");
+   // Serial.print("count: ");
+   // Serial.print(count);
+   /*
+    Serial.print(" Direction: ");
     Serial.print(currentDir);
     Serial.print(" | Counter: ");
     Serial.println(counter);
+    */
   }
 
   // Remember last CLK state
@@ -52,13 +62,15 @@ void getCounter() {
     //button has been pressed, released and pressed again
     if (millis() - lastButtonPress > 50) {
       Serial.println("Button pressed!");
-      
+      count = true;
+      trig = 0;
     }
-
+    
     // Remember last button press event
     lastButtonPress = millis();
   }
-
+  
+    
   // Put in a slight delay to help debounce the reading
   //delay(1);
 }

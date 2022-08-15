@@ -1,9 +1,7 @@
 #include <Arduino.h>
 
 void showMode(){
-
-    
-  
+ 
     display.clearDisplay();
     display.setTextSize(1);      // Normal 1:1 pixel scale
     display.setTextColor(WHITE); // Draw white text
@@ -46,6 +44,8 @@ void showMode(){
 }
 
 void showSens(){
+
+    
   
     display.clearDisplay();
     display.setTextSize(1);      // Normal 1:1 pixel scale

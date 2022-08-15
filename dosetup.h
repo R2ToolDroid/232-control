@@ -47,9 +47,13 @@ void doInput(int VAR, int VALUE ){
     while (SETTING == 1 )  
     {
 
-     int trig = digitalRead(TRIG);  
+     //int trig = digitalRead(TRIG);  
      
      getCounter();
+
+     //int trig = digitalRead(TRIG);  
+     //if (count != true){return;}
+     if ( (count) || (trig == 0) ) {
 
     display.clearDisplay();
     display.setTextSize(1);      // Normal 1:1 pixel scale
@@ -62,11 +66,17 @@ void doInput(int VAR, int VALUE ){
     display.print("= ");
     display.println(VALUE);
     NVALUE= VALUE+counter;
+    display.setTextSize(2);  
     display.print(NVALUE);
     
     
     display.display();
+
     
+     }
+
+    //Serial.println("trig ");
+    //Serial.println(trig);
 
     if (trig == 0) {
       
@@ -111,7 +121,7 @@ void doInput(int VAR, int VALUE ){
       
       } //end tirg
 
-
+    trig = 1;
     
     } // edn while
     //delay(2000);
@@ -173,8 +183,11 @@ int LMOTPWR = 150 ;  // Motorpower 255 Max
 
 
 void doSetup(){
-
+    
     getCounter();
+    
+  if ( (count) || (trig == 0) )
+  {
 
     display.clearDisplay();
     display.setTextSize(1);      // Normal 1:1 pixel scale
@@ -264,7 +277,7 @@ void doSetup(){
     
     break;
 }
- int trig = digitalRead(TRIG);
+    
 
     display.setCursor(0, 20); 
     display.print(NVALUE);
@@ -272,10 +285,13 @@ void doSetup(){
     display.print(counter);
     display.display();
 
-
+  }
      //delay (2000);
+      
    
-    if (trig == 0) {
+       if (trig == 0) {
+      
+            trig = 1;
 
         if (counter == 1) {doInput(0,SLEGMOVE);SETTING = 1;}
         if (counter == 2) {doInput(1,SLEGCENT);SETTING = 1;}

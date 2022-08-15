@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
-#define HEIGHT   24  
-#define WIDTH    24
+//#define HEIGHT   24  
+//#define WIDTH    24
 
 int POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
 int MODE = 0; // 0 = Start | 1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
@@ -35,6 +35,7 @@ int LMOTPWR = 150 ;  // Motorpower 255 Max
 String SensorArray[13]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR", "7" ,"8" ,"9" ,"10" ,"11" ,"12", "BTIME" };
 
 int TRIG = 4;
+int trig = 1;
 
 int RC_TRIG = 2;
 
@@ -66,6 +67,8 @@ int in4 = 6;
 int BOOST = 3;
 int BTIME = 20;
 int PBOOST;
+
+
 //EEPROMSPEICHER
 //String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR" };
 
