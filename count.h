@@ -40,9 +40,10 @@ void getCounter() {
       count = true;
     }
 
-   // Serial.print("count: ");
-   // Serial.print(count);
-   /*
+    /*
+    Serial.print("MODE: ");
+     Serial.print(MODE);
+   
     Serial.print(" Direction: ");
     Serial.print(currentDir);
     Serial.print(" | Counter: ");

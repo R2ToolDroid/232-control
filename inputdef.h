@@ -4,20 +4,33 @@
 //#define WIDTH    24
 
 int POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
-int MODE = 0; // 0 = Start | 1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
+int MODE = 0; //
+/*  0 = Start | 
+ *  1 CenterUp
+ *  2 CenterDown
+ *  3 LegCenter
+ *  4 LegMove
+ *  5 MotorTest
+ *  6 Look Down
+ *  7 Setup
+ */ //1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
+
+
+//bool firstStart = true;
+
 
 int ACTIV = 0;  // 0 = Position eingenommen // 1 = In Transit
+
 int SETUP = 0;  // 0 = Normal // 1 = Setup
 int SETTING = 0; /// Ping for Setting
 int NVALUE = 0;
 
-int CENTUP = 14;
-int CENTDOWN = 15; 
+int CENTUP = 14;    // Sensor Oben
+int CENTDOWN = 15;  //Sensor Untern
 
-//int LEGMOVE = 16; //RELAIS
-int CENTLOCK = 16;
+int CENTLOCK = 16;  //Relais für Lock
 
-//int LEGCENTER = 17; ////POTI
+
 int LEGSENS = 17;
 
 
@@ -32,19 +45,32 @@ int SR = 5;  //Sensor Range
 int CMOTPWR = 200 ;  // Motorpower 255 Max
 int LMOTPWR = 150 ;  // Motorpower 255 Max
 
-String SensorArray[13]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR", "7" ,"8" ,"9" ,"10" ,"11" ,"12", "BTIME" };
+///Sensor Array für Display Input
+String SensorArray[13]={
+  "SLEGMOVE", 
+  "SLEGCENT", 
+  "SLEGLOOK", 
+  "SR", 
+  "CMOTPWR",
+  "LMOTPWR",
+  "7" ,
+  "8" ,
+  "9" ,
+  "10" ,
+  "11" ,
+  "12", 
+  "BTIME" 
+  };
 
 int TRIG = 4;
 int trig = 1;
 
+
 int RC_TRIG = 2;
 
-///Rotation Sensor
-
-//#define outputA 12
-//#define outputB 11
 
 int counter = 0; 
+
 int aState;
 int aLastState; 
 int check;

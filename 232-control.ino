@@ -67,24 +67,43 @@ void setup() {
   pinMode(in4, OUTPUT);
   pinMode(BOOST, OUTPUT);
   digitalWrite(BOOST, HIGH);
-  //bargraph();
+  bargraph();
   
  */
   loadDefault();
+  //bargraph();
+  showMode();
 }
 
 void checkMode(){
-  getCounter();
-  if ((counter > 8)||(counter < 1)){counter = 0;}
+  
+  //getCounter();
+  if ((counter > 8)||(counter < 0 )){counter = 0;}
   if (counter != MODE){
+    
     MODE = counter;
     showMode();
   }
+ 
+  
 }  
 
 void loop() {
-    
-    //checkMode();
-    doSetup();
+
+    if (SETUP == 0) {
+        //checkpos();
+        checkMode();
+        //showMode();
+ 
+    } else {
+        doSetup();
+    }
+ 
+  doMove();
+
+      if (ACTIV == 1)
+          {
+           move2to3();
+           }
   
 }

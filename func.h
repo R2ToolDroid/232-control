@@ -311,9 +311,9 @@ void move2to3() {
 
 void doMove() {
 
-    int trig = digitalRead(TRIG);
+    //int trig = digitalRead(TRIG);
 
-    int rc_trig =  200;  //pulseInLong(RC_TRIG,HIGH);
+    //int rc_trig =  200;  //pulseInLong(RC_TRIG,HIGH);
 
   
   
@@ -325,7 +325,7 @@ void doMove() {
   //Serial.print("Trigger");
   //Serial.println(trig);
 
-  if ((trig == 0)||(rc_trig > 1600)) {
+  if (trig == 0) {
     
    if (MODE == 1){centerUp();}
    if (MODE == 2){centerDown();}
