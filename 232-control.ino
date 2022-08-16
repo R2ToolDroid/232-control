@@ -44,7 +44,7 @@ void setup() {
   // Clear the buffer
   display.clearDisplay();
  
-  /*
+  
   pinMode(CENTUP, INPUT);
   pinMode(CENTDOWN, INPUT);
 
@@ -57,7 +57,7 @@ void setup() {
  // pinMode (outputA,INPUT_PULLUP);
  // pinMode (outputB,INPUT_PULLUP);
   pinMode(TRIG, INPUT_PULLUP);
-  pinMode(RC_TRIG, INPUT_PULLUP);
+  //pinMode(RC_TRIG, INPUT_PULLUP);
 
   pinMode(GSM1, OUTPUT);    
   pinMode(GSM2, OUTPUT);
@@ -65,41 +65,48 @@ void setup() {
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
-  pinMode(BOOST, OUTPUT);
-  digitalWrite(BOOST, HIGH);
-  bargraph();
   
- */
+  //bargraph();
+  
+
   loadDefault();
   //bargraph();
+  //delay(8000);
   showMode();
 }
 
 void checkMode(){
   
-  getCounter();
-  if ((counter > 8)||(counter < 0 )){counter = 0;}
+  
+  if (counter > 8){counter = 0;}
+  if (counter < 0){counter = 8;}
+  
   if (counter != MODE){  
     MODE = counter;
     showMode();
   }
- 
-  //getCounter();
+  getCounter();
 }  
 
 void loop() {
+  
 
     if (SETUP == 0) {
-      
+       checkpos();
+       
         int select = digitalRead(TRIG);
         if ( select == 0 ){
-            firstStart = false;
+            Start = false;
             delay(500);
         }
-        if (firstStart){
+
+        
+        if (Start){
           showMode();
         } else {
+          
           checkMode();
+          doMove();
         }    
         
         
@@ -107,8 +114,12 @@ void loop() {
     } else {
         doSetup();
     }
- 
-  doMove();
+    
+ if (ACTIV == 1)
+ {
+  move2to3();
+ }
+  
 
   
 }

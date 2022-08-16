@@ -1,7 +1,7 @@
 // Rotary Encoder Inputs
 #define CLK 11
 #define DT 12
-#define SW 4
+//#define SW 4
 
 int currentStateCLK;
 int lastStateCLK;
@@ -54,7 +54,9 @@ void getCounter() {
   // Remember last CLK state
   lastStateCLK = currentStateCLK;
 
+
   // Read the button state
+  /*
   int btnState = digitalRead(SW);
 
   //If we detect LOW signal, button is pressed
@@ -70,6 +72,7 @@ void getCounter() {
     // Remember last button press event
     lastButtonPress = millis();
   }
+  */
   
     
   // Put in a slight delay to help debounce the reading
