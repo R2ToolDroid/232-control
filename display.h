@@ -39,15 +39,15 @@ void showMode(){
     }
     display.setCursor(0, 14);     // Start at top-left corner
     display.print("MODE : ");
-    if (MODE == 0){ display.print("0 Automatic");}
-    if (MODE == 1){ display.print("1 CentUp   ");}
-    if (MODE == 2){ display.print("2 CentDown ");}
-    if (MODE == 3){ display.print("3 LegCent  ");}
-    if (MODE == 4){ display.print("4 LegMove  ");}
-    if (MODE == 5){ display.print("5 LookDown ");}
-    if (MODE == 6){ display.print("6 Test MOT ");}
-    if (MODE == 7){ display.print("7 -SETUP-  ");}
-    if (MODE == 8){ display.print("8 Start    ");}
+    if (MODE == 0){ display.print("0 Auto   ");}
+    if (MODE == 1){ display.print("1 CentUp ");}
+    if (MODE == 2){ display.print("2 CentDn ");}
+    if (MODE == 3){ display.print("3 LegCent");}
+    if (MODE == 4){ display.print("4 LegMove");}
+    if (MODE == 5){ display.print("5 LookDn ");}
+    if (MODE == 6){ display.print("6 Test   ");}
+    if (MODE == 7){ display.print("7 -SETUP-");}
+    if (MODE == 8){ display.print("8 Start");}
 
     //int centup = digitalRead(CENTUP);
    // int centdown = digitalRead(CENTDOWN);

@@ -17,7 +17,7 @@ void showRun(){
     if (MODE == 3){ display.print("LegCent  ");TARGET = SLEGCENT;}
     if (MODE == 4){ display.print("LegMove  ");TARGET = SLEGMOVE;}
     if (MODE == 5){ display.print("Look     ");TARGET = SLEGLOOK;}
-    if (MODE == 6){ display.print("Test MOT ");}
+    //if (MODE == 6){ display.print("Test MOT ");}
 
     display.setTextSize(1);
     display.setCursor(0, 16);     // Start at top-left corner
@@ -91,7 +91,7 @@ void centerUp(){
       digitalWrite(in2, LOW);
       digitalWrite(CENTLOCK,LOW);
 
-      ACTIV = 0;
+      ACTIV = false;
       counter = 0;
 }
 
@@ -152,7 +152,7 @@ void LegCenter(){
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);
       //digitalWrite(BOOST, HIGH);
-      ACTIV = 0;
+      ACTIV = false;
       counter = 0;
 }
 
@@ -179,7 +179,7 @@ void LegMove(){
     }
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);
-      ACTIV = 0;
+      ACTIV = false;
       counter = 0;
 }
 
@@ -200,41 +200,13 @@ void Look(){
     }
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);
-      ACTIV = 0;
+      ACTIV = false;
       counter = 0;
 }
 
 
 
-void doTest(){
 
-  bargraph();
-
-  digitalWrite(in1, HIGH);  // Motor 1 beginnt zu rotieren
-  digitalWrite(in2, LOW);
-
-  analogWrite(GSM1, 100);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
-
-  digitalWrite(in3, HIGH);  // Motor 2 beginnt zu rotieren
-  digitalWrite(in4, LOW);
-
-  analogWrite(GSM2, 100);   // Motor 2 soll ebenfalls mit der Geschwindigkeit "200" (max. 255) rotieren
-  delay(1000);
-
-  digitalWrite(in1, LOW);   // Durch die Veränderung von HIGH auf LOW (bzw. LOW auf HIGH) wird die Richtung der Rotation verändert.
-  digitalWrite(in2, HIGH);
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
-  delay(1000);
-
-  digitalWrite(in1, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
-  digitalWrite(in2, LOW);
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, LOW);
-
-  delay(1000);
-  counter = 0;
-}
 
 
 void move2to3() {
@@ -293,14 +265,14 @@ void doMove() {
 
   if (trig == 0) {
 
-   if (MODE == 0){ACTIV = 1;}
+   if (MODE == 0){ACTIV = true;}
    
    if (MODE == 1){centerUp();}
    if (MODE == 2){centerDown();}
    if (MODE == 3){LegCenter();}
    if (MODE == 4){LegMove();}
    if (MODE == 5){Look();}
-   if (MODE == 6){doTest();}
+   if (MODE == 6){}
 
    if (MODE == 7){SETUP = 1;}
    if (MODE == 8){delay(500);Start = true; MODE = 0;}

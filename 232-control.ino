@@ -115,7 +115,7 @@ void loop() {
         doSetup();
     }
     
- if (ACTIV == 1)
+ if (ACTIV)
  {
   move2to3();
  }

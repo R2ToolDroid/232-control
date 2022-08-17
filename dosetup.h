@@ -47,7 +47,7 @@ void doInput(int VAR, int VALUE ){
     while (SETTING == 1 )  
     {
 
-     int trig = digitalRead(TRIG);  
+     bool trig = digitalRead(TRIG);  
      
      getCounter();
 
@@ -193,7 +193,7 @@ int LMOTPWR = 150 ;  // Motorpower 255 Max
 void doSetup(){
     
     getCounter();
-    int trig = digitalRead(TRIG);  
+    bool trig = digitalRead(TRIG);  
     
   if ( (count) || (trig == 0) )
   {
@@ -280,10 +280,7 @@ void doSetup(){
     display.print("-Debug off-");
     break;
 
-    case 12:
-    display.print("check later ");
-    //display.print(BTIME);
-    break;
+    
 
     
   default:

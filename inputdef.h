@@ -3,8 +3,12 @@
 //#define HEIGHT   24  
 //#define WIDTH    24
 
-int POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
-int MODE = 0; //
+// VARS:
+// Byte    0-255
+
+
+byte POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
+byte MODE = 0; //
 /*  0 Automatic | 
  *  1 CenterUp
  *  2 CenterDown
@@ -16,22 +20,18 @@ int MODE = 0; //
  *  8 Start
  */ //1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
 
-int PAGE = 0;
-    // 0 = Start
-    // 1 = Sensor
-    // 2 = Menu
-
 bool Start = true;
 
-int ACTIV = 0;  // 0 = Position eingenommen // 1 = In Transit
+bool ACTIV = false;  // 0 = Position eingenommen // 1 = In Transit
 
-int SETUP = 0;  // 0 = Normal // 1 = Setup
-int SETTING = 0; /// Ping for Setting
-int NVALUE = 0;
-int CENTUP = 14;    // Sensor Oben
-int CENTDOWN = 15;  //Sensor Untern
-int CENTLOCK = 16;  //Relais für Lock
-int LEGSENS = 17;
+bool SETUP = 0;  // 0 = Normal // 1 = Setup
+bool SETTING = 0; /// Ping for Setting
+short NVALUE = 0;
+
+#define CENTUP  14    // Sensor Oben
+#define CENTDOWN  15  //Sensor Untern
+#define CENTLOCK  16  //Relais für Lock
+#define LEGSENS  17
 
 #define READ_LEGSENS map(analogRead(LEGSENS), 1023 ,0 , 50, 0)
 #define READ_CENTUP digitalRead(CENTUP)
@@ -39,16 +39,16 @@ int LEGSENS = 17;
 
 /// POSITIONS BESTIMMUNG POTI LEGS
 
-int SLEGMOVE = 170;
-int SLEGCENT = 100;
-int SLEGLOOK = 70;
+short SLEGMOVE = 170;
+short SLEGCENT = 100;
+short SLEGLOOK = 70;
 
-int SR = 5;  //Sensor Range
+byte SR = 5;  //Sensor Range
 
-int CMOTPWR = 200 ;  // Motorpower 255 Max
-int LMOTPWR_B = 255 ;  // Motorpower 255 Max
-int LMOTPWR_F = 255 ;  // Motorpower 255 Max
-int LMOTPWR = 0;
+byte CMOTPWR = 200 ;  // Motorpower 255 Max
+byte LMOTPWR_B = 255 ;  // Motorpower 255 Max
+byte LMOTPWR_F = 255 ;  // Motorpower 255 Max
+byte LMOTPWR = 0;
 
 ///Sensor Array für Display Input
 String SensorArray[13]={
@@ -67,36 +67,54 @@ String SensorArray[13]={
   "13" 
   };
 
-int TRIG = 4;
-int trig = 1;
+#define TRIG  4
+
+
+bool trig = 1;
 
 
 int RC_TRIG = 2;
 
 
-int counter = 0; 
+byte counter = 0; 
 
-int aState;
-int aLastState; 
-int check;
+//int aState;
+//int aLastState; 
+//int check;
 
 ////
 // Gleichstrommotor 1
-
-int GSM1 = 10;
-int in1 = 9;
-int in2 = 8;
+#define GSM1 10
+#define in1 9
+#define in2 8
+ 
+//int GSM1 = 10;
+//int in1 = 9;
+//int in2 = 8;
 
 // Gleichstrommotor 1
 
-int GSM2 = 5;
-int in3 = 7;
-int in4 = 6;
+#define GSM2 5
+#define in3 7
+#define in4 6
+
+//int GSM2 = 5;
+//int in3 = 7;
+//int in4 = 6;
 
 
 //EEPROMSPEICHER
 //String SensorArray[6]={"SLEGMOVE", "SLEGCENT", "SLEGLOOK", "SR", "CMOTPWR", "LMOTPWR" };
 
+#define adr0 103 //SLEGMOVE
+#define adr1 105 //SLEGCENT
+#define adr2 107 //SLEGLOOK
+#define adr3 109 //SR
+#define adr4 111 //CMOTPWR
+#define adr5 113 //LMOTPWR_B
+#define adr6 115 //LMOTPWR_F
+
+/*
 int adr0=103; //SLEGMOVE
 int adr1=105; //SLEGCENT
 int adr2=107; //SLEGLOOK
@@ -105,9 +123,10 @@ int adr4=111; //CMOTPWR
 int adr5=113; //LMOTPWR_B
 int adr6=115; //LMOTPWR_F
 //int adr12=115; //BTIME
+*/
 
-int k;
+short k;
 
 
 
-int debug = false;
+bool debug = false;
