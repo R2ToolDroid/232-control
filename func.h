@@ -1,6 +1,10 @@
 #include <Arduino.h>
 
-
+// Check in Range inRange(x, 0, 200)
+bool inRange(byte val, byte minimum, byte maximum)
+{
+  return ((minimum <= val) && (val <= maximum));
+}
 
 
 
@@ -251,11 +255,11 @@ void doMove() {
 
     int trig = digitalRead(TRIG);
 
-    //int rc_trig =  200;  //pulseInLong(RC_TRIG,HIGH);
+    //int rc_trig =  pulseInLong(RC_TRIG,HIGH);
 
   
   
-  //Serial.print("RC SIGNAL_");
+  //rial.print("RC SIGNAL_");
   //Serial.println(rc_trig);
 
 //  int prog = digitalRead(PROG);

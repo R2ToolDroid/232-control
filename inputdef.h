@@ -73,7 +73,7 @@ String SensorArray[13]={
 bool trig = 1;
 
 
-int RC_TRIG = 2;
+#define RC_TRIG  2
 
 
 byte counter = 0; 

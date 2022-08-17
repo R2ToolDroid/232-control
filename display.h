@@ -77,26 +77,30 @@ void checkpos(){
 
           
   
-          //int centup = digitalRead(CENTUP);
-          //int centdown = digitalRead(CENTDOWN);
-          //int legsens = analogRead(LEGSENS);
+          //bool centup = digitalRead(CENTUP);
+          //bool centdown = digitalRead(CENTDOWN);
+          //byte legsens = analogRead(LEGSENS);
           //int legcenter = digitalRead(LEGCENTER);
            //int legsens = READ_LEGSENS;
           //int leglook = digitalRead(LEGLOOK);
           int OLD_POSITION = POSITION;
           // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
           /// SLEGCENT ; SLEGMOVE ; SLEGLOOK;
-            if ((READ_CENTUP == 0)&&(READ_LEGSENS > SLEGCENT-SR ) && (READ_LEGSENS < SLEGCENT +SR)) {POSITION = 1;}
-            if ((READ_CENTDOWN == 0)&& (READ_LEGSENS > SLEGMOVE ) ) {POSITION = 2;}
-            if ((READ_CENTUP == 0)&& (READ_LEGSENS <= SLEGLOOK )) {POSITION = 3;}
-            if ((READ_CENTUP == 0)&& (READ_CENTDOWN == 0 )) {POSITION = 0;}
-            if ((READ_CENTUP == 1)&& (READ_CENTDOWN == 1 )) {POSITION = 0;}
+          POSITION = 0;
+            if (( READ_CENTUP == 0 )&&( inRange(READ_LEGSENS, SLEGCENT-SR, SLEGCENT+SR) )) {POSITION = 1;}
+            
+            if (( READ_CENTDOWN == 0 )&& ( inRange(READ_LEGSENS, SLEGMOVE-SR, SLEGMOVE+SR) )) {POSITION = 2;}
+            
+            if ((READ_CENTUP == 0)&& ( inRange(READ_LEGSENS, SLEGLOOK-SR, SLEGLOOK+SR)  )) {POSITION = 3;}
+            
+            //if ((READ_CENTUP == 0)&& (READ_CENTDOWN == 0 )) {POSITION = 0;}
+            //if ((READ_CENTUP == 1)&& (READ_CENTDOWN == 1 )) {POSITION = 0;}
 
           //if ((centdown == 1)&&( legmove == 1 ) &&( legcenter == 1 ) && (centup == 1) ) {POSITION = 0;}
           //  if ((centdown == 0)&&( legmove == 0 ) &&( legcenter == 0 ) && (centup == 1) && (leglook == 1) ) {POSITION = 3;} 
             if (debug)
             {
-              /*
+              
             Serial.print("POS = ");
             Serial.print(POSITION);
             Serial.print(" - centup = ");
@@ -105,7 +109,7 @@ void checkpos(){
             Serial.print(READ_CENTDOWN);
             Serial.print(" | legsens = ");
             Serial.println(READ_LEGSENS);
-            */
+            
             }
             
           if (POSITION != OLD_POSITION){
