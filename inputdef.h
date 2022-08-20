@@ -6,7 +6,7 @@
 // VARS:
 // Byte    0-255
 
-byte counter = 8; 
+int counter = 8; 
 byte POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
 byte MODE = 8; //
 /*  0 Automatic | 
@@ -27,7 +27,7 @@ bool ACTIV = false;  // 0 = Position eingenommen // 1 = In Transit
 
 bool SETUP = 0;  // 0 = Normal // 1 = Setup
 bool SETTING = 0; /// Ping for Setting
-short NVALUE = 0;
+int NVALUE = 0;
 
 #define CENTUP  14    // Sensor Oben
 #define CENTDOWN  15  //Sensor Untern
@@ -44,16 +44,21 @@ bool T_CENTDOWN;
 
 /// POSITIONS BESTIMMUNG POTI LEGS
 
-short SLEGMOVE = 170;
-short SLEGCENT = 100;
-short SLEGLOOK = 70;
+int SLEGMOVE = 170;
+int SLEGCENT = 100;
+int SLEGLOOK = 70;
 
-byte SR = 5;  //Sensor Range
+int SR = 5;  //Sensor Range
 
-byte CMOTPWR = 200 ;  // Motorpower 255 Max
-byte LMOTPWR_B = 255 ;  // Motorpower 255 Max
-byte LMOTPWR_F = 255 ;  // Motorpower 255 Max
-byte LMOTPWR = 0;
+bool REFRESH = false;
+
+int CMOTPWR = 200 ;  // Motorpower 255 Max
+
+unsigned long maxCentTime = 3000;
+
+int LMOTPWR_B = 255 ;  // Motorpower 255 Max
+int LMOTPWR_F = 255 ;  // Motorpower 255 Max
+int LMOTPWR = 0;
 
 ///Sensor Array für Display Input
 String SensorArray[13]={
@@ -76,7 +81,7 @@ String SensorArray[13]={
 
 bool trig = 1;
 
-#define RC_TRIG  2
+#define  RC_TRIG 2
 
 int rc_trig ;
 
@@ -129,7 +134,7 @@ int adr6=115; //LMOTPWR_F
 //int adr12=115; //BTIME
 */
 
-short k;
+int k;
 
 
 

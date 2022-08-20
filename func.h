@@ -80,7 +80,24 @@ void centerUp(){
      
      delay(1000); 
 
+     unsigned long StartTime = millis();
+
     while (centup == 1) {
+
+      unsigned long CurrentTime = millis();
+      unsigned long ElapsedTime = CurrentTime - StartTime;
+      /*
+      Serial.print("time: ");
+      Serial.print(ElapsedTime);
+      Serial.print(" - ");
+      Serial.println(CurrentTime);
+      */
+      if (ElapsedTime >= maxCentTime){
+        //display("No Center Ping found");
+        Serial.println("need too mutch time");
+        POSITION = 4;
+        break;
+      }
 
       showRun();
       centup = READ_CENTUP;
@@ -104,9 +121,28 @@ void centerDown(){
 
       int centdown = READ_CENTDOWN;
 
-      //showRun();
+      showRun();
+
+      unsigned long StartTime = millis();
 
     while (centdown == 1) {
+
+
+      unsigned long CurrentTime = millis();
+      unsigned long ElapsedTime = CurrentTime - StartTime;
+      /*
+      Serial.print("time: ");
+      Serial.print(ElapsedTime);
+      Serial.print(" - ");
+      Serial.println(CurrentTime);
+      */
+      if (ElapsedTime >= maxCentTime){
+        //display("No Center Ping found");
+        Serial.println("need too mutch time");
+        POSITION = 4;
+        counter = 0;
+        break;
+      }
       
       showRun();
       
@@ -251,6 +287,7 @@ void move2to3() {
 void doMove() {
 
     trig = digitalRead(TRIG);
+    rc_trig     =  pulseInLong(RC_TRIG,HIGH);
 
 
   if (( trig == 0 ) || ( rc_trig >= 1200 )) {

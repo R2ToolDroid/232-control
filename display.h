@@ -10,8 +10,8 @@ void showMode(){
     display.print(F("POS  : "));
       // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
       switch (POSITION) {
-            case 0:
-            display.print(F("..error"));
+            case 0:        
+            display.print(F("ERROR_POS"));            
             break;
 
             case 1:
@@ -24,6 +24,10 @@ void showMode(){
 
             case 3:
             display.print(F("LOOK DOWN"));
+            break;
+
+            case 4:
+            display.print(F("ERROR_TIME"));
             break;
         
       }
@@ -54,13 +58,12 @@ void showMode(){
     
 }
 
-void checkpos(){
-
-          
+void checkpos(){       
         
-   if (( T_CENTUP != READ_CENTUP ) || ( T_LEGSENS != READ_LEGSENS ) || ( T_CENTUP != READ_CENTUP ) || ( T_CENTDOWN != READ_CENTDOWN ))
+   if (( T_CENTUP != READ_CENTUP ) || ( T_LEGSENS != READ_LEGSENS ) || ( T_CENTDOWN != READ_CENTDOWN ))
     {
-       showMode();
+       
+       REFRESH = true;
     }
 
           T_LEGSENS = READ_LEGSENS;
@@ -82,7 +85,9 @@ void checkpos(){
           //if ((centdown == 1)&&( legmove == 1 ) &&( legcenter == 1 ) && (centup == 1) ) {POSITION = 0;}
           //  if ((centdown == 0)&&( legmove == 0 ) &&( legcenter == 0 ) && (centup == 1) && (leglook == 1) ) {POSITION = 3;} 
             
-            
+        if (REFRESH) {
+          showMode();    
+        }
           
             
 }///checkpos

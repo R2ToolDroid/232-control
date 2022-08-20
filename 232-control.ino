@@ -63,13 +63,13 @@ void checkMode(){
   
   getCounter();
 
-  
-  //Serial.print("Count");
-  //Serial.print(counter);
-  //Serial.print(" Mode ");
-  //Serial.println(MODE);
-  //delay(1000);
-/*  */
+  /*
+  Serial.print("Count");
+  Serial.print(counter);
+  Serial.print(" Mode ");
+  Serial.println(MODE);
+  delay(1000);
+ */
   
   if (counter > 7){counter = 0;}
   if (counter < 0){counter = 7;}
