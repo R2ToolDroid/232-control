@@ -6,7 +6,7 @@
 int currentStateCLK;
 int lastStateCLK;
 String currentDir ="";
-unsigned long lastButtonPress = 0;
+//unsigned long lastButtonPress = 0;
 bool count = false;
 
 void getCounter() {
@@ -56,23 +56,7 @@ void getCounter() {
 
 
   // Read the button state
-  /*
-  int btnState = digitalRead(SW);
-
-  //If we detect LOW signal, button is pressed
-  if (btnState == LOW) {
-    //if 50ms have passed since last LOW pulse, it means that the
-    //button has been pressed, released and pressed again
-    if (millis() - lastButtonPress > 50) {
-      Serial.println("Button pressed!");
-      count = true;
-      trig = 0;
-    }
-    
-    // Remember last button press event
-    lastButtonPress = millis();
-  }
-  */
+  
   
     
   // Put in a slight delay to help debounce the reading

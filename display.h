@@ -6,68 +6,49 @@ void showMode(){
     display.setTextSize(1);      // Normal 1:1 pixel scale
     display.setTextColor(WHITE); // Draw white text
     display.setCursor(1, 2);     // Start at top-left corner
-    if (Start){
-      display.drawRect(0,0,128,11,WHITE);
-      display.print(" -R2 Ready to Start- ");
-      
-    } else {
-    display.print("POS  :  ");
+    
+    display.print(F("POS  : "));
       // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
       switch (POSITION) {
             case 0:
-            display.print("!undefined!");
+            display.print(F("..error"));
             break;
 
             case 1:
-            display.print("TWO LEG    ");
+            display.print(F("TWO LEG  "));
             break;
 
             case 2:
-            display.print("THREE LEG  ");
+            display.print(F("THREE LEG"));
             break;
 
             case 3:
-            display.print("LOOK DOWN  ");
+            display.print(F("LOOK DOWN"));
             break;
         
       }
     
-    //display.print(POSITION);  
-    }
-    if(!Start){
-    display.drawRect(37,12,91,11,WHITE);
-    }
     display.setCursor(0, 14);     // Start at top-left corner
-    display.print("MODE : ");
-    if (MODE == 0){ display.print("0 Auto   ");}
-    if (MODE == 1){ display.print("1 CentUp ");}
-    if (MODE == 2){ display.print("2 CentDn ");}
-    if (MODE == 3){ display.print("3 LegCent");}
-    if (MODE == 4){ display.print("4 LegMove");}
-    if (MODE == 5){ display.print("5 LookDn ");}
-    if (MODE == 6){ display.print("6 Test   ");}
-    if (MODE == 7){ display.print("7 -SETUP-");}
-    if (MODE == 8){ display.print("8 Start");}
-
-    //int centup = digitalRead(CENTUP);
-   // int centdown = digitalRead(CENTDOWN);
-    //int legmove = digitalRead(LEGMOVE);
-    //int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
-    //int leglook = digitalRead(LEGLOOK);
+    display.print(F("MODE : "));
+    if (MODE == 0){ display.print(F("0 Auto   "));}
+    if (MODE == 1){ display.print(F("1 CentUp "));}
+    if (MODE == 2){ display.print(F("2 CentDn "));}
+    if (MODE == 3){ display.print(F("3 LegCent"));}
+    if (MODE == 4){ display.print(F("4 LegMove"));}
+    if (MODE == 5){ display.print(F("5 LookDn "));}
+    if (MODE == 6){ display.print(F("6 Check  "));}
+    if (MODE == 7){ display.print(F("7 -SETUP-"));}
+    
     display.setCursor(0, 25);     // Start at top-left corner
-    display.print("SEN: ");
+    display.print(F("SEN: "));
 
-    if (READ_CENTUP == 1) {display.print ("UP 1");}
-    else {display.print ("UP 0");}
-    if (READ_CENTDOWN == 1) {display.print (" DW 1");}
-    else {display.print (" DW 0");}
-    display.print (" -");
+    if (READ_CENTUP == 1) {display.print (F("UP 1"));}
+    else {display.print (F("UP 0"));}
+    if (READ_CENTDOWN == 1) {display.print (F(" DW 1"));}
+    else {display.print (F(" DW 0"));}
+    display.print (F(" -"));
     display.print (READ_LEGSENS);
-    display.print ("-");
-    //if (POSITION == 0){display.drawBitmap(104,1,side_bmp, WIDTH, HEIGHT, 1);}
-    //if (POSITION == 1){display.drawBitmap(104,1,front_bmp, WIDTH, HEIGHT, 1);}
-    //if (POSITION == 2){display.drawBitmap(104,1,drive_bmp, WIDTH, HEIGHT, 1);}
-    //if (POSITION == 3){display.drawBitmap(104,1,look_bmp, WIDTH, HEIGHT, 1);}
+    display.print (F("-"));
     display.display();
     
     
@@ -76,14 +57,16 @@ void showMode(){
 void checkpos(){
 
           
-  
-          //bool centup = digitalRead(CENTUP);
-          //bool centdown = digitalRead(CENTDOWN);
-          //byte legsens = analogRead(LEGSENS);
-          //int legcenter = digitalRead(LEGCENTER);
-           //int legsens = READ_LEGSENS;
-          //int leglook = digitalRead(LEGLOOK);
-          int OLD_POSITION = POSITION;
+        
+   if (( T_CENTUP != READ_CENTUP ) || ( T_LEGSENS != READ_LEGSENS ) || ( T_CENTUP != READ_CENTUP ) || ( T_CENTDOWN != READ_CENTDOWN ))
+    {
+       showMode();
+    }
+
+          T_LEGSENS = READ_LEGSENS;
+          T_CENTUP = READ_CENTUP;
+          T_CENTDOWN = READ_CENTDOWN;
+          
           // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
           /// SLEGCENT ; SLEGMOVE ; SLEGLOOK;
           POSITION = 0;
@@ -98,22 +81,8 @@ void checkpos(){
 
           //if ((centdown == 1)&&( legmove == 1 ) &&( legcenter == 1 ) && (centup == 1) ) {POSITION = 0;}
           //  if ((centdown == 0)&&( legmove == 0 ) &&( legcenter == 0 ) && (centup == 1) && (leglook == 1) ) {POSITION = 3;} 
-            if (debug)
-            {
-              
-            Serial.print("POS = ");
-            Serial.print(POSITION);
-            Serial.print(" - centup = ");
-            Serial.print(READ_CENTUP);
-            Serial.print(" | centdown = ");
-            Serial.print(READ_CENTDOWN);
-            Serial.print(" | legsens = ");
-            Serial.println(READ_LEGSENS);
             
-            }
             
-          if (POSITION != OLD_POSITION){
-              showMode();
-            }
+          
             
 }///checkpos

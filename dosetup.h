@@ -272,14 +272,7 @@ void doSetup(){
     display.print("EXIT");
     break;
 
-   case 10:
-    display.print("-Debug on-");
-    break;
-
-    case 11:
-    display.print("-Debug off-");
-    break;
-
+  
     
 
     
@@ -316,10 +309,9 @@ void doSetup(){
         
         if (counter == 9) {SaveAlltoRom();SETTING = 1;}
                 
-        if (counter == 8) {SETUP = 0;}
-        if (counter == 10) {debug = true;SETTING = 1;}
-        if (counter == 11) {debug = false;SETTING = 1;}
-        //if (counter == 12) {doInput(12,BTIME);SETTING = 1;}
+        if (counter == 8) {delay(1000);SETUP = 0;}
+        
+        
 
       
     }
@@ -348,9 +340,6 @@ void loadDefault(){
     if (LMOTPWR_B < 1) {LMOTPWR_B = 150;}   
 
     LMOTPWR_F = eepromReadInt(adr6);
-    if (LMOTPWR_F < 1) {LMOTPWR_F = 150;}   
-
-    //BTIME = eepromReadInt(adr12);
-    //if (BTIME < 1) {BTIME = 20;}   
+    if (LMOTPWR_F < 1) {LMOTPWR_F = 150;}     
 
 }

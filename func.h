@@ -215,9 +215,6 @@ void Look(){
 
 void move2to3() {
 
-     //int centup = digitalRead(CENTUP);
-     //int centdown = digitalRead(CENTDOWN);
-     //int legsens = map(analogRead(LEGSENS), 1023 ,0 , 200, 0);
      
 
       // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown
@@ -253,21 +250,10 @@ void move2to3() {
 
 void doMove() {
 
-    int trig = digitalRead(TRIG);
+    trig = digitalRead(TRIG);
 
-    //int rc_trig =  pulseInLong(RC_TRIG,HIGH);
 
-  
-  
-  //rial.print("RC SIGNAL_");
-  //Serial.println(rc_trig);
-
-//  int prog = digitalRead(PROG);
-  
-  //Serial.print("Trigger");
-  //Serial.println(trig);
-
-  if (trig == 0) {
+  if (( trig == 0 ) || ( rc_trig >= 1200 )) {
 
    if (MODE == 0){ACTIV = true;}
    
@@ -276,23 +262,9 @@ void doMove() {
    if (MODE == 3){LegCenter();}
    if (MODE == 4){LegMove();}
    if (MODE == 5){Look();}
-   if (MODE == 6){}
-
+   if (MODE == 6){CheckSens = true;}
    if (MODE == 7){SETUP = 1;}
-   if (MODE == 8){delay(500);Start = true; MODE = 0;}
-
-   //if (MODE == 0){Start = true; MODE = 0;}
-   // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
-  //move2to3();
-
-
-  //if ((MODE == 0) && (POSITION == 1)){move2to3(); }
-   //if ((MODE == 0) && (POSITION == 2)){ LegCenter(); centerUp(); }
-   //if ((MODE == 0) && (POSITION == 0)){ bargraph(); }
-   //if ((MODE == 0) && (POSITION == 1) && (prog == 1)){ Look(); }
-
-   //if ((MODE == 0) && (POSITION == 2)){ centerDown(); }
-   //if ((MODE == 0) && (POSITION == 2)){ centerDown(); }
+   
 
   }// END trig
 

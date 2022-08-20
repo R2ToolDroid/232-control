@@ -6,9 +6,9 @@
 // VARS:
 // Byte    0-255
 
-
+byte counter = 8; 
 byte POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
-byte MODE = 0; //
+byte MODE = 8; //
 /*  0 Automatic | 
  *  1 CenterUp
  *  2 CenterDown
@@ -20,7 +20,8 @@ byte MODE = 0; //
  *  8 Start
  */ //1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
 
-bool Start = true;
+bool CheckSens = false;
+
 
 bool ACTIV = false;  // 0 = Position eingenommen // 1 = In Transit
 
@@ -32,6 +33,10 @@ short NVALUE = 0;
 #define CENTDOWN  15  //Sensor Untern
 #define CENTLOCK  16  //Relais für Lock
 #define LEGSENS  17
+
+int T_LEGSENS;
+bool T_CENTUP;
+bool T_CENTDOWN;
 
 #define READ_LEGSENS map(analogRead(LEGSENS), 1023 ,0 , 50, 0)
 #define READ_CENTUP digitalRead(CENTUP)
@@ -69,14 +74,13 @@ String SensorArray[13]={
 
 #define TRIG  4
 
-
 bool trig = 1;
-
 
 #define RC_TRIG  2
 
+int rc_trig ;
 
-byte counter = 0; 
+
 
 //int aState;
 //int aLastState; 

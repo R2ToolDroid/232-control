@@ -25,11 +25,6 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #include "display.h"
 
-long position  = -999;
-int tmpPos = 0;
-
-
-//#include "func.h"
 
 void setup() {
   
@@ -50,12 +45,7 @@ void setup() {
 
   pinMode(CENTLOCK, OUTPUT);
   pinMode(LEGSENS, INPUT);
-  //pinMode(LEGLOOK, INPUT);
-
-  //pinMode(PROG, INPUT);
- //Selector
- // pinMode (outputA,INPUT_PULLUP);
- // pinMode (outputB,INPUT_PULLUP);
+  
   pinMode(TRIG, INPUT_PULLUP);
   pinMode(RC_TRIG, INPUT_PULLUP);
 
@@ -65,50 +55,40 @@ void setup() {
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
-  
-  //bargraph();
-  
-
   loadDefault();
-  //bargraph();
-  //delay(8000);
   showMode();
 }
 
 void checkMode(){
   
+  getCounter();
+
   
-  if (counter > 8){counter = 0;}
-  if (counter < 0){counter = 8;}
+  //Serial.print("Count");
+  //Serial.print(counter);
+  //Serial.print(" Mode ");
+  //Serial.println(MODE);
+  //delay(1000);
+/*  */
+  
+  if (counter > 7){counter = 0;}
+  if (counter < 0){counter = 7;}
   
   if (counter != MODE){  
     MODE = counter;
     showMode();
   }
-  getCounter();
+  
 }  
 
 void loop() {
   
 
     if (SETUP == 0) {
-       checkpos();
-       
-        int select = digitalRead(TRIG);
-        if ( select == 0 ){
-            Start = false;
-            delay(500);
-        }
-
-        
-        if (Start){
-          showMode();
-        } else {
-          
-          checkMode();
-          doMove();
-        }    
-        
+        checkpos();
+        doMove();
+        checkMode();
+    
         
  
     } else {
