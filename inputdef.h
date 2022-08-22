@@ -20,7 +20,7 @@ byte MODE = 8; //
  *  8 Start
  */ //1 = CenterUp | 2 = CenterDown | 3 = LegCenter | 4 = LegMove | 5 = MotorTest | 6 = Look Down
 
-bool CheckSens = false;
+
 
 
 bool ACTIV = false;  // 0 = Position eingenommen // 1 = In Transit
@@ -44,21 +44,21 @@ bool T_CENTDOWN;
 
 /// POSITIONS BESTIMMUNG POTI LEGS
 
-int SLEGMOVE = 170;
-int SLEGCENT = 100;
-int SLEGLOOK = 70;
+byte SLEGMOVE = 170;
+byte SLEGCENT = 100;
+byte SLEGLOOK = 70;
 
-int SR = 5;  //Sensor Range
+byte SR = 5;  //Sensor Range
 
 bool REFRESH = false;
 
-int CMOTPWR = 200 ;  // Motorpower 255 Max
+byte CMOTPWR = 200 ;  // Motorpower 255 Max
 
 unsigned long maxCentTime = 3000;
 
-int LMOTPWR_B = 255 ;  // Motorpower 255 Max
-int LMOTPWR_F = 255 ;  // Motorpower 255 Max
-int LMOTPWR = 0;
+byte LMOTPWR_B = 255 ;  // Motorpower 255 Max
+byte LMOTPWR_F = 255 ;  // Motorpower 255 Max
+byte LMOTPWR = 0;
 
 ///Sensor Array für Display Input
 String SensorArray[13]={
@@ -85,6 +85,7 @@ bool trig = 1;
 
 int rc_trig ;
 
+bool lauf = 0;
 
 
 //int aState;

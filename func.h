@@ -15,12 +15,12 @@ void showRun(){
     display.setCursor(0, 0);     // Start at top-left corner
     //int legsens = analogRead(LEGSENS);
     int TARGET;
-    if (MODE == 0){ display.print("RUN       ");}
-    if (MODE == 1){ display.print("CentUp   ");}
-    if (MODE == 2){ display.print("CentDown ");}
-    if (MODE == 3){ display.print("LegCent  ");TARGET = SLEGCENT;}
-    if (MODE == 4){ display.print("LegMove  ");TARGET = SLEGMOVE;}
-    if (MODE == 5){ display.print("Look     ");TARGET = SLEGLOOK;}
+    if (MODE == 0){ display.print(F("RUN     "));}
+    if (MODE == 1){ display.print(F("CentUp  "));}
+    if (MODE == 2){ display.print(F("CentDown"));}
+    if (MODE == 3){ display.print(F("LegCent "));TARGET = SLEGCENT;}
+    if (MODE == 4){ display.print(F("LegMove "));TARGET = SLEGMOVE;}
+    if (MODE == 5){ display.print(F("Look    "));TARGET = SLEGLOOK;}
     //if (MODE == 6){ display.print("Test MOT ");}
 
     display.setTextSize(1);
@@ -94,7 +94,7 @@ void centerUp(){
       */
       if (ElapsedTime >= maxCentTime){
         //display("No Center Ping found");
-        Serial.println("need too mutch time");
+        Serial.println(F("need too mutch time"));
         POSITION = 4;
         break;
       }
@@ -104,7 +104,7 @@ void centerUp(){
       digitalWrite(in1, LOW);  // Motor 1 beginnt zu rotieren
       digitalWrite(in2, HIGH);
       analogWrite(GSM1, CMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
-      Serial.println("Center UP");
+      Serial.println(F("Center UP"));
       
       
     }
@@ -138,7 +138,7 @@ void centerDown(){
       */
       if (ElapsedTime >= maxCentTime){
         //display("No Center Ping found");
-        Serial.println("need too mutch time");
+        Serial.println(F("need too mutch time"));
         POSITION = 4;
         counter = 0;
         break;
@@ -150,7 +150,7 @@ void centerDown(){
       digitalWrite(in1, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in2, LOW);
       analogWrite(GSM1, CMOTPWR);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
-      Serial.println("Center Down");
+      Serial.println(F("Center Down"));
       
     }
       digitalWrite(in1, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
@@ -161,7 +161,7 @@ void centerDown(){
 void LegCenter(){
   
      
-      int lauf = 1;
+       lauf = 1;
      
        // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
 
@@ -175,12 +175,12 @@ void LegCenter(){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);
       LMOTPWR = LMOTPWR_B;
-      Serial.println("Leg rechtsrum");
+      Serial.println(F("Leg rechtsrum"));
       } else {
         digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
         digitalWrite(in4, HIGH);
         LMOTPWR = LMOTPWR_F;
-        Serial.println("Leg linksrum");
+        Serial.println(F("Leg linksrum"));
       }
       analogWrite(GSM2, LMOTPWR );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
       //Serial.println("Leg Center");
@@ -199,7 +199,7 @@ void LegCenter(){
 void LegMove(){
 
        
-       int lauf = 1;
+        lauf = 1;
        
 
     while (lauf == 1) {
@@ -210,7 +210,7 @@ void LegMove(){
       if ((READ_LEGSENS > SLEGMOVE-SR )&&( READ_LEGSENS < SLEGMOVE+SR)) { lauf = 0;}  else { lauf = 1;}
       digitalWrite(in3, LOW);  // Motor 2 beginnt zu rotieren
       digitalWrite(in4, HIGH);
-      Serial.println("Leg linksrum");
+      Serial.println(F("Leg linksrum"));
       analogWrite(GSM2, LMOTPWR_F);   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
       //Serial.println("Leg Move");
   
@@ -299,7 +299,7 @@ void doMove() {
    if (MODE == 3){LegCenter();}
    if (MODE == 4){LegMove();}
    if (MODE == 5){Look();}
-   if (MODE == 6){CheckSens = true;}
+   if (MODE == 6){}
    if (MODE == 7){SETUP = 1;}
    
 
