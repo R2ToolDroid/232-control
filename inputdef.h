@@ -6,6 +6,8 @@
 // VARS:
 // Byte    0-255
 
+String data = "";
+
 int counter = 8; 
 byte POSITION = 0 ;  // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown 
 byte MODE = 8; //
@@ -55,6 +57,9 @@ bool REFRESH = false;
 byte CMOTPWR = 200 ;  // Motorpower 255 Max
 
 unsigned long maxCentTime = 3000;
+
+unsigned long ShakeTime = 100;
+
 
 byte LMOTPWR_B = 255 ;  // Motorpower 255 Max
 byte LMOTPWR_F = 255 ;  // Motorpower 255 Max

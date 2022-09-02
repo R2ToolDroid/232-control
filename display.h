@@ -44,7 +44,7 @@ void showMode(){
     if (MODE == 3){ display.print(F("3 LegCent"));}
     if (MODE == 4){ display.print(F("4 LegMove"));}
     if (MODE == 5){ display.print(F("5 LookDn "));}
-    if (MODE == 6){ display.print(F("6 Check  "));}
+    if (MODE == 6){ display.print(F("6 Shake  "));}
     if (MODE == 7){ display.print(F("7 -SETUP-"));}
     
     display.setCursor(0, 25);     // Start at top-left corner

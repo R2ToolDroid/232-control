@@ -20,14 +20,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #include "count.h"
 #include "func.h"
-
-//#include "MDriver.h"
-
 #include "dosetup.h"
-//R2D2 Moving; ///Classe Starten
 
 #include "display.h"
-
+#include "command.h"
 
 void setup() {
   
@@ -66,13 +62,6 @@ void checkMode(){
   
   getCounter();
 
-  /*
-  Serial.print("Count");
-  Serial.print(counter);
-  Serial.print(" Mode ");
-  Serial.println(MODE);
-  delay(1000);
- */
   
   if (counter > 7){counter = 0;}
   if (counter < 0){counter = 7;}
@@ -98,8 +87,11 @@ void loop() {
     
  if (ACTIV)
  {
-  //checkpos();
   move2to3();
+ } else {
+  
+  Comand();
+  
  }
   
 

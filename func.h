@@ -349,6 +349,35 @@ void move2to3() {
 }
 
 
+void Shake(){
+
+    
+
+    
+    if (POSITION == 2)
+    {
+      LegCenter();
+      delay(1000);
+      centerUp();
+      return;
+    } else {
+
+      Look();
+      delay(ShakeTime);
+      LegCenter();
+      delay(ShakeTime);
+      Look();
+      delay(ShakeTime);
+      LegCenter();
+      
+    }
+
+
+    
+  
+}
+
+
 
 void doMove() {
 
@@ -365,7 +394,7 @@ void doMove() {
    if (MODE == 3){LegCenter();}
    if (MODE == 4){LegMove();}
    if (MODE == 5){Look();}
-   if (MODE == 6){}
+   if (MODE == 6){Shake();}
    if (MODE == 7){SETUP = 1;}
    
 
