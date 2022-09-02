@@ -21,6 +21,21 @@ void ProzessComando() {
        
       }
 
+    if (data == "look" )
+      {         
+       Serial.println("look");
+       Shake();
+       
+      }  
+
+    if (data == "center" )
+      {         
+       Serial.println("center");
+       Shake();
+       
+      } 
+      
+
     
     if (data == "debug on")
       {
