@@ -46,9 +46,9 @@ bool T_CENTDOWN;
 
 /// POSITIONS BESTIMMUNG POTI LEGS
 
-byte SLEGMOVE = 170;    //28
+byte SLEGMOVE = 85;    //28
 byte SLEGCENT = 50;    //24
-byte SLEGLOOK = 70;     //20
+byte SLEGLOOK = 35;     //20
 
 byte SR = 5;  //Sensor Range
 
