@@ -47,58 +47,75 @@ void doInput(int VAR, int VALUE ){
     while (SETTING == 1 )  
     {
 
-     int trig = digitalRead(TRIG);  
+     bool trig = digitalRead(TRIG);  
      
      getCounter();
+
+     //int trig = digitalRead(TRIG);  
+     //if (count != true){return;}
+     if ( (count) || (trig == 0) ) {
 
     display.clearDisplay();
     display.setTextSize(1);      // Normal 1:1 pixel scale
     display.setTextColor(WHITE); // Draw white text
     display.setCursor(0, 0);     // Start at top-left corner
-    display.println("------ INPUT ------");
+    display.println(" ------ INPUT ------");
 
     display.print("SET: " );
     display.print(SensorArray[VAR]);
     display.print("= ");
     display.println(VALUE);
     NVALUE= VALUE+counter;
+    display.setTextSize(2);  
+    display.print("  :");
     display.print(NVALUE);
     
     
     display.display();
+
     
+     }
+
+    //Serial.println("trig ");
+    //Serial.println(trig);
 
     if (trig == 0) {
       
       switch (VAR) {
         case 0:
         SLEGMOVE = NVALUE;        
-        SETTING = 0;SETUP = 0;counter = 0;
+        SETTING = 0;SETUP = 1;counter = 1;
         break;    
         case 1:
         SLEGCENT = NVALUE;        
-        SETTING = 0;SETUP = 0;counter = 0;
+        SETTING = 0;SETUP = 1;counter = 2;
         break; 
         case 2:
         SLEGLOOK = NVALUE;        
-        SETTING = 0;SETUP = 0;counter = 0;
+        SETTING = 0;SETUP = 1;counter = 3;
         break; 
         case 3:
         SR = NVALUE;        
-        SETTING = 0;SETUP = 0;counter = 0;
+        SETTING = 0;SETUP = 1;counter = 4;
         break; 
         case 4:
         CMOTPWR = NVALUE;        
-        SETTING = 0;SETUP = 0;counter = 0;
+        SETTING = 0;SETUP = 1;counter = 5;
         break; 
         case 5:
-        LMOTPWR = NVALUE;        
-        SETTING = 0;SETUP = 0;counter = 0;
+        LMOTPWR_B = NVALUE;        
+        SETTING = 0;SETUP = 1;counter = 6;
         break; 
 
+        case 6:
+        LMOTPWR_F = NVALUE;        
+        SETTING = 0;SETUP = 1;counter = 7;
+        break; 
+        
+
         case 12:
-        BTIME = NVALUE;        
-        SETTING = 0;SETUP = 0;counter = 0;
+        //BTIME = NVALUE;        
+        SETTING = 0;SETUP = 1;counter = 13;
         break; 
               
         default:
@@ -108,10 +125,11 @@ void doInput(int VAR, int VALUE ){
     
         break;
       } //end switch
-      
+
+      delay(500);
       } //end tirg
 
-
+    //trig = 1;
     
     } // edn while
     //delay(2000);
@@ -144,13 +162,13 @@ void SaveAlltoRom(){
   eepromWriteInt(adr4,k);  
   Serial.println(eepromReadInt(adr4)); 
 
-  k=LMOTPWR;
+  k=LMOTPWR_B;
   eepromWriteInt(adr5,k);  
   Serial.println(eepromReadInt(adr5)); 
 
-  k=BTIME;
-  eepromWriteInt(adr12,k);  
-  Serial.println(eepromReadInt(adr4)); 
+  k=LMOTPWR_F;
+  eepromWriteInt(adr6,k);  
+  Serial.println(eepromReadInt(adr6)); 
   
   delay(1000);
   bargraph();
@@ -173,8 +191,12 @@ int LMOTPWR = 150 ;  // Motorpower 255 Max
 
 
 void doSetup(){
-
+    
     getCounter();
+    bool trig = digitalRead(TRIG);  
+    
+  if ( (count) || (trig == 0) )
+  {
 
     display.clearDisplay();
     display.setTextSize(1);      // Normal 1:1 pixel scale
@@ -190,6 +212,12 @@ void doSetup(){
 ///int SLEGLOOK = 339;
 
     switch (counter) {
+
+  case 0:
+   display.print("-SELECT-");
+   break; 
+
+      
   case 1:
    
     display.print("SLEGMOVE= ");
@@ -225,13 +253,14 @@ void doSetup(){
 
    case 6:
    
-    display.print("LMOTPWR=   ");
-    display.print(LMOTPWR);
+    display.print("LMOTPWR_B= ");
+    display.print(LMOTPWR_B);
     
     break;
     
     case 7:
-    display.print("-SELECT-");
+    display.print("LMOTPWR_F= ");
+    display.print(LMOTPWR_F);
     break; 
 
 
@@ -243,18 +272,8 @@ void doSetup(){
     display.print("EXIT");
     break;
 
-   case 10:
-    display.print("-Debug on-");
-    break;
-
-    case 11:
-    display.print("-Debug off-");
-    break;
-
-    case 12:
-    display.print("Boost Time = ");
-     display.print(BTIME);
-    break;
+  
+    
 
     
   default:
@@ -264,7 +283,7 @@ void doSetup(){
     
     break;
 }
- int trig = digitalRead(TRIG);
+    
 
     display.setCursor(0, 20); 
     display.print(NVALUE);
@@ -272,23 +291,27 @@ void doSetup(){
     display.print(counter);
     display.display();
 
-
+  }
      //delay (2000);
+      
    
-    if (trig == 0) {
+       if (trig == 0) {
+      
+            trig = 1;
 
         if (counter == 1) {doInput(0,SLEGMOVE);SETTING = 1;}
         if (counter == 2) {doInput(1,SLEGCENT);SETTING = 1;}
         if (counter == 3) {doInput(2,SLEGLOOK);SETTING = 1;}
         if (counter == 4) {doInput(3,SR);SETTING = 1;}
         if (counter == 5) {doInput(4,CMOTPWR);SETTING = 1;}
-        if (counter == 6) {doInput(5,LMOTPWR);SETTING = 1;}
+        if (counter == 6) {doInput(5,LMOTPWR_B);SETTING = 1;}
+        if (counter == 7) {doInput(6,LMOTPWR_F);SETTING = 1;}
+        
         if (counter == 9) {SaveAlltoRom();SETTING = 1;}
                 
-        if (counter == 8) {SETUP = 0;}
-        if (counter == 10) {debug = true;SETTING = 1;}
-        if (counter == 11) {debug = false;SETTING = 1;}
-        if (counter == 12) {doInput(12,BTIME);SETTING = 1;}
+        if (counter == 8) {delay(1000);SETUP = 0;}
+        
+        
 
       
     }
@@ -313,10 +336,10 @@ void loadDefault(){
     CMOTPWR = eepromReadInt(adr4);
     if (CMOTPWR < 1) {CMOTPWR = 255;}
 
-    LMOTPWR = eepromReadInt(adr5);
-    if (LMOTPWR < 1) {LMOTPWR = 150;}   
+    LMOTPWR_B = eepromReadInt(adr5);
+    if (LMOTPWR_B < 1) {LMOTPWR_B = 150;}   
 
-    BTIME = eepromReadInt(adr12);
-    if (BTIME < 1) {BTIME = 20;}   
+    LMOTPWR_F = eepromReadInt(adr6);
+    if (LMOTPWR_F < 1) {LMOTPWR_F = 150;}     
 
 }
