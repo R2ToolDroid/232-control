@@ -27,6 +27,10 @@ void showMode(){
             break;
 
             case 4:
+            display.print(F("TWO LEG +"));
+            break;
+
+            case 5:
             display.print(F("ERROR_TIME"));
             break;
         
@@ -70,14 +74,21 @@ void checkpos(){
           T_CENTUP = READ_CENTUP;
           T_CENTDOWN = READ_CENTDOWN;
           
-          // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
+          // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown | 4=twoleg with middle down
           /// SLEGCENT ; SLEGMOVE ; SLEGLOOK;
           POSITION = 0;
+            
             if (( READ_CENTUP == 0 )&&( inRange(READ_LEGSENS, SLEGCENT-SR, SLEGCENT+SR) )) {POSITION = 1;}
             
             if (( READ_CENTDOWN == 0 )&& ( inRange(READ_LEGSENS, SLEGMOVE-SR, SLEGMOVE+SR) )) {POSITION = 2;}
             
             if ((READ_CENTUP == 0)&& ( inRange(READ_LEGSENS, SLEGLOOK-SR, SLEGLOOK+SR)  )) {POSITION = 3;}
+            
+            //if ((READ_CENTDOWN == 0)&&( inRange(READ_LEGSENS, SLEGMOVE-SR, SLEGMOVE+SR != true)  )) {POSITION = 0;}
+
+            if (( READ_CENTUP == 1 )&&( inRange(READ_LEGSENS, SLEGCENT-SR, SLEGCENT+SR) )) {POSITION = 4;}
+
+            
             
             //if ((READ_CENTUP == 0)&& (READ_CENTDOWN == 0 )) {POSITION = 0;}
             //if ((READ_CENTUP == 1)&& (READ_CENTDOWN == 1 )) {POSITION = 0;}
@@ -86,6 +97,12 @@ void checkpos(){
           //  if ((centdown == 0)&&( legmove == 0 ) &&( legcenter == 0 ) && (centup == 1) && (leglook == 1) ) {POSITION = 3;} 
             
         if (REFRESH) {
+
+          if (debug){
+              
+              Serial.println(POSITION);
+              
+            }
           showMode();    
         }
           

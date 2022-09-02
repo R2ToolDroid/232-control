@@ -67,6 +67,8 @@ void bargraph(void) {
   delay(100);
   display.clearDisplay();
   counter = 0;
+  SETUP = 0;
+  //showMode();
 }
 
 void centerUp(){
@@ -95,7 +97,7 @@ void centerUp(){
       if (ElapsedTime >= maxCentTime){
         //display("No Center Ping found");
         Serial.println(F("need too mutch time"));
-        POSITION = 4;
+        POSITION = 5;
         break;
       }
 
@@ -139,7 +141,7 @@ void centerDown(){
       if (ElapsedTime >= maxCentTime){
         //display("No Center Ping found");
         Serial.println(F("need too mutch time"));
-        POSITION = 4;
+        POSITION = 5;
         counter = 0;
         break;
       }
@@ -157,6 +159,65 @@ void centerDown(){
       digitalWrite(in2, LOW);
       
 }
+/* NEW Fuction 
+
+/// LegMot(Target Position);
+void LegMot(int POS){
+
+        lauf = 1;
+        unsigned long StartTime = millis();
+     
+       // 0=undefiniert | 1=twoleg | 2=move | 3=lookdown
+
+    while (lauf == 1) {
+
+      unsigned long CurrentTime = millis();
+      unsigned long ElapsedTime = CurrentTime - StartTime;
+      /*
+      Serial.print("time: ");
+      Serial.print(ElapsedTime);
+      Serial.print(" - ");
+      Serial.println(CurrentTime);
+      
+      if (ElapsedTime >= maxCentTime){
+        //display("No Center Ping found");
+        Serial.println(F("need too mutch time"));
+        POSITION = 5;
+        counter = 0;
+        break;
+      }
+
+       showRun();
+ 
+      if ((READ_LEGSENS > SLEGCENT-SR) &&( READ_LEGSENS < SLEGCENT+SR)) { lauf = 0;} else { lauf = 1;}
+
+     if (READ_LEGSENS > POS ){
+      digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
+      digitalWrite(in4, LOW);
+      LMOTPWR = LMOTPWR_B;
+      Serial.println(F("Leg rechtsrum"));
+      } else {
+        digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
+        digitalWrite(in4, HIGH);
+        LMOTPWR = LMOTPWR_F;
+        Serial.println(F("Leg linksrum"));
+      }
+      analogWrite(GSM2, LMOTPWR );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
+      //Serial.println("Leg Center");
+
+    }
+      digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
+      digitalWrite(in4, LOW);
+      //digitalWrite(BOOST, HIGH);
+      ACTIV = false;
+      //counter = 0;
+      
+}
+
+*/
+
+
+
 
 void LegCenter(){
   
@@ -171,7 +232,7 @@ void LegCenter(){
  
       if ((READ_LEGSENS > SLEGCENT-SR) &&( READ_LEGSENS < SLEGCENT+SR)) { lauf = 0;} else { lauf = 1;}
 
-      if (READ_LEGSENS < SLEGCENT ){
+      if (READ_LEGSENS > SLEGCENT ){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);
       LMOTPWR = LMOTPWR_B;
@@ -193,7 +254,7 @@ void LegCenter(){
       digitalWrite(in4, LOW);
       //digitalWrite(BOOST, HIGH);
       ACTIV = false;
-      counter = 0;
+      //counter = 0;
 }
 
 void LegMove(){
@@ -220,7 +281,7 @@ void LegMove(){
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);
       ACTIV = false;
-      counter = 0;
+      //counter = 0;
 }
 
 void Look(){
@@ -241,7 +302,7 @@ void Look(){
       digitalWrite(in3, LOW);   // Anschließend sollen die Motoren 2 Sekunden ruhen.
       digitalWrite(in4, LOW);
       ACTIV = false;
-      counter = 0;
+      //counter = 0;
 }
 
 
@@ -273,6 +334,11 @@ void move2to3() {
       LegCenter();
     }
 
+    if (POSITION == 4)
+    {
+      centerUp();
+    }
+
     if (POSITION == 0)
     {
       LegCenter();
@@ -290,7 +356,7 @@ void doMove() {
     rc_trig     =  pulseInLong(RC_TRIG,HIGH);
 
 
-  if (( trig == 0 ) || ( rc_trig >= 1200 )) {
+  if (( trig == 0 ) || ( rc_trig >= 1600 )) {
 
    if (MODE == 0){ACTIV = true;}
    

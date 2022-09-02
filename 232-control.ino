@@ -20,6 +20,9 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #include "count.h"
 #include "func.h"
+
+//#include "MDriver.h"
+
 #include "dosetup.h"
 //R2D2 Moving; ///Classe Starten
 
@@ -88,8 +91,6 @@ void loop() {
         checkpos();
         doMove();
         checkMode();
-    
-        
  
     } else {
         doSetup();
@@ -97,6 +98,7 @@ void loop() {
     
  if (ACTIV)
  {
+  //checkpos();
   move2to3();
  }
   

@@ -38,15 +38,15 @@ int T_LEGSENS;
 bool T_CENTUP;
 bool T_CENTDOWN;
 
-#define READ_LEGSENS map(analogRead(LEGSENS), 1023 ,0 , 50, 0)
+#define READ_LEGSENS map(analogRead(LEGSENS), 1023 ,0 , 100, 0)
 #define READ_CENTUP digitalRead(CENTUP)
 #define READ_CENTDOWN digitalRead(CENTDOWN)
 
 /// POSITIONS BESTIMMUNG POTI LEGS
 
-byte SLEGMOVE = 170;
-byte SLEGCENT = 100;
-byte SLEGLOOK = 70;
+byte SLEGMOVE = 170;    //28
+byte SLEGCENT = 50;    //24
+byte SLEGLOOK = 70;     //20
 
 byte SR = 5;  //Sensor Range
 
