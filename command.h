@@ -7,7 +7,7 @@ void ProzessComando() {
 
     if (data == "move" )
       {             
-       Serial.println("Move");
+       Serial.println("move");
        MODE=0;
        ACTIV = true;
        
@@ -16,7 +16,7 @@ void ProzessComando() {
       
     if (data == "shake" )
       {         
-       Serial.println("Shake");
+       Serial.println("shake");
        Shake();
        
       }
@@ -24,14 +24,14 @@ void ProzessComando() {
     if (data == "look" )
       {         
        Serial.println("look");
-       Shake();
+       Look();
        
       }  
 
-    if (data == "center" )
+    if (data == "Lcenter" )
       {         
-       Serial.println("center");
-       Shake();
+       Serial.println("Lcenter");
+       LegCenter();
        
       } 
       
