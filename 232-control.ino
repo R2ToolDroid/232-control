@@ -9,6 +9,8 @@
 #include <Adafruit_SSD1306.h>
 #include <EEPROM.h>   //Einfügen der EEPROM Bibliothek
 
+#include <SoftwareSerial.h>   
+
 #include "inputdef.h"
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -17,6 +19,8 @@
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+SoftwareSerial MainInput(2, 3); // Pin 2 ist RX, Pin 3 ist TX.
 
 #include "count.h"
 #include "func.h"
@@ -28,6 +32,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 void setup() {
   
   Serial.begin(9600);
+  MainInput.begin(9600);
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
@@ -46,8 +51,7 @@ void setup() {
   pinMode(LEGSENS, INPUT);
   
   pinMode(TRIG, INPUT_PULLUP);
-  pinMode(RC_TRIG, INPUT_PULLUP);
-
+ 
   pinMode(GSM1, OUTPUT);    
   pinMode(GSM2, OUTPUT);
   pinMode(in1, OUTPUT);

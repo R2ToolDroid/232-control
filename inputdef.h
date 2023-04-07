@@ -56,7 +56,7 @@ bool REFRESH = false;
 
 byte CMOTPWR = 200 ;  // Motorpower 255 Max
 
-unsigned long maxCentTime = 3000;
+unsigned long maxCentTime = 4000;
 
 unsigned long ShakeTime = 100;
 
@@ -85,10 +85,6 @@ String SensorArray[13]={
 #define TRIG  4
 
 bool trig = 1;
-
-#define  RC_TRIG 2
-
-int rc_trig ;
 
 bool lauf = 0;
 

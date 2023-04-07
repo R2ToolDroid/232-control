@@ -9,10 +9,11 @@ void ProzessComando() {
       {             
        Serial.println("move");
        MODE=0;
-       ACTIV = true;
-       
+       ACTIV = true;    
        
       }
+
+        
       
     if (data == "shake" )
       {         
@@ -62,16 +63,18 @@ void Comand() {
         data = Serial.readStringUntil('\n');         
         ProzessComando();       
     }
-  /*///Prüfung 2///
+
+    
+  
   MainInput.listen();
   
    if (MainInput.available() > 0)
     {
         data = MainInput.readStringUntil('\r');
-        Serial.println("main");
+        Serial.print("main_");
         Serial.println(data);
         ProzessComando();
         
     }
-    */
+    
 }

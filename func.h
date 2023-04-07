@@ -382,10 +382,10 @@ void Shake(){
 void doMove() {
 
     trig = digitalRead(TRIG);
-    rc_trig     =  pulseInLong(RC_TRIG,HIGH);
+    
 
 
-  if (( trig == 0 ) || ( rc_trig >= 1600 )) {
+  if ( trig == 0  ) {
 
    if (MODE == 0){ACTIV = true;}
    
