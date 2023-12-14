@@ -236,12 +236,15 @@ void LegCenter(){
       digitalWrite(in3, HIGH);  // Motor 1 beginnt zu rotieren
       digitalWrite(in4, LOW);
       LMOTPWR = LMOTPWR_B;
-      Serial.println(F("Leg rechtsrum"));
+      Serial.print(F("Leg rechtsrum :"));
+      Serial.println(LMOTPWR);
+      
       } else {
         digitalWrite(in3, LOW);  // Motor 1 beginnt zu rotieren
         digitalWrite(in4, HIGH);
         LMOTPWR = LMOTPWR_F;
-        Serial.println(F("Leg linksrum"));
+        Serial.print(F("Leg linksrum :"));
+        Serial.println(LMOTPWR);
       }
       analogWrite(GSM2, LMOTPWR );   // Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren
       //Serial.println("Leg Center");
@@ -312,7 +315,8 @@ void Look(){
 
 void move2to3() {
 
-     
+     Serial.print("Position: "); 
+     Serial.println(POSITION);
 
       // 0=undefiniert | 1=twoleg | 2=move | 03=lookdown
     if (POSITION == 1)
