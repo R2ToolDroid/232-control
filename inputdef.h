@@ -50,7 +50,8 @@ byte SLEGMOVE = 85;    //28
 byte SLEGCENT = 50;    //24
 byte SLEGLOOK = 35;     //20
 
-byte SR = 5;  //Sensor Range
+byte SR = 5;  //Sensor Range for Move
+byte SRP = 7; // Sensor Range for Position
 
 bool REFRESH = false;
 

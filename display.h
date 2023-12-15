@@ -78,15 +78,15 @@ void checkpos(){
           /// SLEGCENT ; SLEGMOVE ; SLEGLOOK;
           POSITION = 0;
             
-            if (( READ_CENTUP == 0 )&&( inRange(READ_LEGSENS, SLEGCENT-SR, SLEGCENT+SR) )) {POSITION = 1;}
+            if (( READ_CENTUP == 0 )&&( inRange(READ_LEGSENS, SLEGCENT-SRP, SLEGCENT+SRP) )) {POSITION = 1;}
             
-            if (( READ_CENTDOWN == 0 )&& ( inRange(READ_LEGSENS, SLEGMOVE-SR, SLEGMOVE+SR) )) {POSITION = 2;}
+            if (( READ_CENTDOWN == 0 )&& ( inRange(READ_LEGSENS, SLEGMOVE-SRP, SLEGMOVE+SRP) )) {POSITION = 2;}
             
-            if ((READ_CENTUP == 0)&& ( inRange(READ_LEGSENS, SLEGLOOK-SR, SLEGLOOK+SR)  )) {POSITION = 3;}
+            if ((READ_CENTUP == 0)&& ( inRange(READ_LEGSENS, SLEGLOOK-SRP, SLEGLOOK+SRP)  )) {POSITION = 3;}
             
             //if ((READ_CENTDOWN == 0)&&( inRange(READ_LEGSENS, SLEGMOVE-SR, SLEGMOVE+SR != true)  )) {POSITION = 0;}
 
-            if (( READ_CENTUP == 1 )&&( inRange(READ_LEGSENS, SLEGCENT-SR, SLEGCENT+SR) )) {POSITION = 4;}
+            if (( READ_CENTUP == 1 )&&( inRange(READ_LEGSENS, SLEGCENT-SRP, SLEGCENT+SRP) )) {POSITION = 4;}
 
             
             
@@ -99,8 +99,16 @@ void checkpos(){
         if (REFRESH) {
 
           if (debug){
-              
-              Serial.println(POSITION);
+              Serial.print("READ_LEGSENS : ");
+              Serial.print(READ_LEGSENS);
+              Serial.print(" SLEGCENT :");
+              Serial.print(SLEGCENT);
+              Serial.print(" SR :");
+              Serial.print(SR);
+              Serial.print(" Position :"); 
+              Serial.print(POSITION);
+              Serial.print(" In Range :" );
+              Serial.println(inRange(READ_LEGSENS, SLEGCENT-SR, SLEGCENT+SR));
               
             }
           showMode();    

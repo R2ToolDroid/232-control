@@ -323,7 +323,10 @@ void move2to3() {
     {
       centerDown();
       delay(500);
+      if(READ_CENTDOWN == 0 ){
       LegMove();
+      //Secure Flip froward only when third leg applied and save
+      }
     }
 
     if (POSITION == 2)
@@ -394,9 +397,13 @@ void doMove() {
    if (MODE == 0){ACTIV = true;}
    
    if (MODE == 1){centerUp();}
+   
    if (MODE == 2){centerDown();}
+   
    if (MODE == 3){LegCenter();}
+   
    if (MODE == 4){LegMove();}
+   
    if (MODE == 5){Look();}
    if (MODE == 6){Shake();}
    if (MODE == 7){SETUP = 1;}
